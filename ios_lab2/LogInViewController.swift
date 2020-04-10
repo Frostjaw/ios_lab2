@@ -25,6 +25,7 @@ class LogInViewController: UIViewController {
   @IBAction func signUpButtonTouchDown(_ sender: Any) {
     let registerViewController = RegisterViewController()
     self.present(registerViewController, animated: true, completion: nil)
+    //test
   }
   
   override func viewDidLoad() {
