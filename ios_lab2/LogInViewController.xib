@@ -9,8 +9,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LogInViewController" customModule="ios_lab2" customModuleProvider="target">
             <connections>
-                <outlet property="logInButton" destination="t2g-jx-60H" id="wOM-oc-3Q3"/>
-                <outlet property="logInContainerView" destination="mJM-Mv-SVm" id="F81-Ac-NNx"/>
+                <outlet property="mailTextField" destination="Jkn-BV-2kF" id="XDW-uG-oHE"/>
+                <outlet property="passwordTextField" destination="ZUd-4O-SkL" id="flC-kx-pCm"/>
                 <outlet property="signUpButton" destination="8VU-pd-tja" id="v5p-Db-i2C"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-Mv-SVm">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-Mv-SVm" customClass="RoundedView" customModule="ios_lab2" customModuleProvider="target">
                     <rect key="frame" x="20" y="296" width="374" height="314"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вход" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Te-Xk-lqM">
@@ -29,7 +29,7 @@
                             <color key="textColor" red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ваша почта" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jkn-BV-2kF">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ваша почта" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jkn-BV-2kF" customClass="TextFieldWithBottomBorder" customModule="ios_lab2" customModuleProvider="target">
                             <rect key="frame" x="20" y="70" width="334" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="ppc-Wd-Q9C"/>
@@ -37,15 +37,15 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZUd-4O-SkL">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZUd-4O-SkL" customClass="TextFieldWithBottomBorder" customModule="ios_lab2" customModuleProvider="target">
                             <rect key="frame" x="20" y="130" width="334" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="Oqy-6D-zZY"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2g-jx-60H">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2g-jx-60H" customClass="RoundedButton" customModule="ios_lab2" customModuleProvider="target">
                             <rect key="frame" x="20" y="190" width="334" height="44"/>
                             <color key="backgroundColor" red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -55,8 +55,11 @@
                             <state key="normal" title="Вход">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="logInButtonTouchDown:" destination="-1" eventType="touchDown" id="dIP-PU-yIJ"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8VU-pd-tja">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8VU-pd-tja" customClass="RoundedButton" customModule="ios_lab2" customModuleProvider="target">
                             <rect key="frame" x="20" y="250" width="334" height="44"/>
                             <color key="backgroundColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>

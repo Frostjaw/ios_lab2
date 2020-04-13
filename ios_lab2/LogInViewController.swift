@@ -10,17 +10,25 @@ import UIKit
 
 class LogInViewController: UIViewController {
   
-  // MARK: - constants
+  @IBOutlet weak var mailTextField: TextFieldWithBottomBorder!
+  @IBOutlet weak var passwordTextField: TextFieldWithBottomBorder!
+  @IBOutlet weak var signUpButton: RoundedButton!
   
-  enum Constants {
-    static let containerViewCornerRadius = CGFloat(3)
-    static let buttonsCornerRadius = CGFloat(8)
+  let backendService = BackendService()
+  
+  @IBAction func logInButtonTouchDown(_ sender: Any) {
+    guard let mail = mailTextField.text, !mail.isEmpty else {
+      showAlert(message: "Введите почту")
+      return
+    }
+    guard let password = passwordTextField.text, !password.isEmpty else{
+      showAlert(message: "Введите пароль")
+      return
+    }
+    
+    backendService.loginUser(email: mail, password: password)
+    
   }
-  
-  @IBOutlet weak var logInContainerView: UIView!
-  @IBOutlet weak var logInButton: UIButton!
-  @IBOutlet weak var signUpButton: UIButton!
-  
   
   @IBAction func signUpButtonTouchDown(_ sender: Any) {
     let registerViewController = RegisterViewController()
@@ -30,18 +38,6 @@ class LogInViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    launchLogInContainerView()
-    launchButtons()
-    
-  }
-  
-  private func launchLogInContainerView(){
-    logInContainerView.layer.cornerRadius = Constants.containerViewCornerRadius
-  }
-  
-  private func launchButtons(){
-    logInButton.layer.cornerRadius = Constants.buttonsCornerRadius
-    signUpButton.layer.cornerRadius = Constants.buttonsCornerRadius
   }
   
 }

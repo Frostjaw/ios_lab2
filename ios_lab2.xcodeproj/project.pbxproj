@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		855948032440836400E6B115 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855948012440836400E6B115 /* RegisterViewController.swift */; };
 		855948042440836400E6B115 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 855948022440836400E6B115 /* RegisterViewController.xib */; };
+		8564278224446E92005973CC /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564278124446E92005973CC /* RoundedButton.swift */; };
+		85642784244471CB005973CC /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85642783244471CB005973CC /* RoundedView.swift */; };
+		85642786244474FD005973CC /* TextFieldWithBottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */; };
+		8564278824448E62005973CC /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564278724448E62005973CC /* ViewControllerExtensions.swift */; };
+		8564278A2444979A005973CC /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856427892444979A005973CC /* BackendService.swift */; };
 		859220A6243F34A400867F7B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 859220A5243F34A400867F7B /* LaunchScreen.xib */; };
 		85BAED71243ED26700255151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BAED70243ED26700255151 /* AppDelegate.swift */; };
 		85BAED7A243ED26900255151 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85BAED79243ED26900255151 /* Assets.xcassets */; };
@@ -22,6 +27,11 @@
 		6D660459856C8E26FBF882B3 /* Pods_ios_lab2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_lab2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		855948012440836400E6B115 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		855948022440836400E6B115 /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		8564278124446E92005973CC /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		85642783244471CB005973CC /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
+		85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithBottomBorder.swift; sourceTree = "<group>"; };
+		8564278724448E62005973CC /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
+		856427892444979A005973CC /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
 		859220A5243F34A400867F7B /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		85BAED6D243ED26700255151 /* ios_lab2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_lab2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85BAED70243ED26700255151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +91,11 @@
 				859220A5243F34A400867F7B /* LaunchScreen.xib */,
 				855948012440836400E6B115 /* RegisterViewController.swift */,
 				855948022440836400E6B115 /* RegisterViewController.xib */,
+				8564278124446E92005973CC /* RoundedButton.swift */,
+				85642783244471CB005973CC /* RoundedView.swift */,
+				85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */,
+				8564278724448E62005973CC /* ViewControllerExtensions.swift */,
+				856427892444979A005973CC /* BackendService.swift */,
 			);
 			path = ios_lab2;
 			sourceTree = "<group>";
@@ -210,9 +225,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8564278A2444979A005973CC /* BackendService.swift in Sources */,
 				855948032440836400E6B115 /* RegisterViewController.swift in Sources */,
 				85C514EF243F0F6A00117BC4 /* LogInViewController.swift in Sources */,
 				85BAED71243ED26700255151 /* AppDelegate.swift in Sources */,
+				85642784244471CB005973CC /* RoundedView.swift in Sources */,
+				85642786244474FD005973CC /* TextFieldWithBottomBorder.swift in Sources */,
+				8564278224446E92005973CC /* RoundedButton.swift in Sources */,
+				8564278824448E62005973CC /* ViewControllerExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
