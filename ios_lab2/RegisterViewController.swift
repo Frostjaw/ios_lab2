@@ -44,7 +44,16 @@ class RegisterViewController: UIViewController {
       return
     }
     
-    backendService.registerUser(email: mail, name: login, password: password)
+    backendService.registerUser(email: mail, name: login, password: password) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        
+      case .success(let response):
+        //print(response)
+        self.showAlert(message: response["message"] as! String)
+      }
+    }
     
   }
   

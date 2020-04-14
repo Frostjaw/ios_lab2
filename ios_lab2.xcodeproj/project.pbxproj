@@ -14,6 +14,10 @@
 		85642786244474FD005973CC /* TextFieldWithBottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */; };
 		8564278824448E62005973CC /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564278724448E62005973CC /* ViewControllerExtensions.swift */; };
 		8564278A2444979A005973CC /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856427892444979A005973CC /* BackendService.swift */; };
+		856B04832445AACD00902698 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856B04812445AACD00902698 /* MainViewController.swift */; };
+		856B04842445AACD00902698 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 856B04822445AACD00902698 /* MainViewController.xib */; };
+		856B04882445B0DE00902698 /* NotForgotNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 856B04872445B0DE00902698 /* NotForgotNavigationBar.xib */; };
+		856B048A2445CB7900902698 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856B04892445CB7900902698 /* User.swift */; };
 		859220A6243F34A400867F7B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 859220A5243F34A400867F7B /* LaunchScreen.xib */; };
 		85BAED71243ED26700255151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BAED70243ED26700255151 /* AppDelegate.swift */; };
 		85BAED7A243ED26900255151 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85BAED79243ED26900255151 /* Assets.xcassets */; };
@@ -32,6 +36,10 @@
 		85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithBottomBorder.swift; sourceTree = "<group>"; };
 		8564278724448E62005973CC /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
 		856427892444979A005973CC /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
+		856B04812445AACD00902698 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		856B04822445AACD00902698 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		856B04872445B0DE00902698 /* NotForgotNavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotForgotNavigationBar.xib; sourceTree = "<group>"; };
+		856B04892445CB7900902698 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		859220A5243F34A400867F7B /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		85BAED6D243ED26700255151 /* ios_lab2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_lab2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85BAED70243ED26700255151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +104,10 @@
 				85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */,
 				8564278724448E62005973CC /* ViewControllerExtensions.swift */,
 				856427892444979A005973CC /* BackendService.swift */,
+				856B04812445AACD00902698 /* MainViewController.swift */,
+				856B04822445AACD00902698 /* MainViewController.xib */,
+				856B04872445B0DE00902698 /* NotForgotNavigationBar.xib */,
+				856B04892445CB7900902698 /* User.swift */,
 			);
 			path = ios_lab2;
 			sourceTree = "<group>";
@@ -171,7 +183,9 @@
 			files = (
 				85C514F0243F0F6A00117BC4 /* LogInViewController.xib in Resources */,
 				859220A6243F34A400867F7B /* LaunchScreen.xib in Resources */,
+				856B04842445AACD00902698 /* MainViewController.xib in Resources */,
 				85BAED7A243ED26900255151 /* Assets.xcassets in Resources */,
+				856B04882445B0DE00902698 /* NotForgotNavigationBar.xib in Resources */,
 				855948042440836400E6B115 /* RegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,7 +245,9 @@
 				85BAED71243ED26700255151 /* AppDelegate.swift in Sources */,
 				85642784244471CB005973CC /* RoundedView.swift in Sources */,
 				85642786244474FD005973CC /* TextFieldWithBottomBorder.swift in Sources */,
+				856B04832445AACD00902698 /* MainViewController.swift in Sources */,
 				8564278224446E92005973CC /* RoundedButton.swift in Sources */,
+				856B048A2445CB7900902698 /* User.swift in Sources */,
 				8564278824448E62005973CC /* ViewControllerExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

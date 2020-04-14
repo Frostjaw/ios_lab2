@@ -6,5 +6,6 @@ target 'ios_lab2' do
   use_frameworks!
 
   pod 'Alamofire', '~> 4.0'
+  pod 'Kingfisher', '~> 5.0'
 
 end

@@ -26,7 +26,16 @@ class LogInViewController: UIViewController {
       return
     }
     
-    backendService.loginUser(email: mail, password: password)
+    backendService.loginUser(email: mail, password: password) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        
+      case .success(let response):
+        print(response)
+        //self.showAlert(message: response["message"] as! String)
+      }
+    }
     
   }
   

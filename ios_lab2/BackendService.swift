@@ -16,7 +16,7 @@ class BackendService {
     static let LOGIN_URL = "login"
   }
   
-  func registerUser(email: String, name: String, password: String) {
+  func registerUser(email: String, name: String, password: String, completionHandler: @escaping (Result<[String: Any]>) -> Void) {
     
     let parameters = [
       "email": email,
@@ -27,12 +27,12 @@ class BackendService {
     Alamofire.request(Constants.BASE_URL + Constants.REGISTER_URL, method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
       switch response.result {
       case .success(let value as [String: Any]):
-        //completion(.success(value))
-        print("Request completed, response: \(value)")
+        completionHandler(.success(value))
+        //print("Request completed, response: \(value)")
         
       case .failure(let error):
-        //completion(.failure(error))
-        print ("Request failed with error: \(error)")
+        completionHandler(.failure(error))
+      //print ("Request failed with error: \(error)")
       default:
         fatalError("received non-dictionary JSON response")
       }
@@ -41,7 +41,8 @@ class BackendService {
     
   }
   
-  func loginUser(email: String, password: String) {
+  func loginUser(email: String, password: String, completionHandler: @escaping (Result<[String: Any]>) -> Void) {
+    
     let parameters = [
       "email": email,
       "password": password
@@ -49,13 +50,19 @@ class BackendService {
     
     Alamofire.request(Constants.BASE_URL + Constants.LOGIN_URL, method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
       switch response.result {
-      case .success(let value as [String: Any]):
-        //completion(.success(value))
-        print("Request completed, response: \(value)")
+      case .success(let response as [String: Any]):
+        //completionHandler(.success(response))
+        //print("Request completed, response: \(response)")
+        guard let token = response["api_token"] else {
+          print(response)
+          return
+        }
+        print(token)
+        
         
       case .failure(let error):
-        //completion(.failure(error))
-        print ("Request failed with error: \(error)")
+        completionHandler(.failure(error))
+        //print ("Request failed with error: \(error)")
         
       default:
         fatalError("received non-dictionary JSON response")
