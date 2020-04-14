@@ -41,7 +41,7 @@ class BackendService {
     
   }
   
-  func loginUser(email: String, password: String, completionHandler: @escaping (Result<[String: Any]>) -> Void) {
+  func loginUser(email: String, password: String, completionHandler: @escaping (Result<String>) -> Void) {
     
     let parameters = [
       "email": email,
@@ -57,7 +57,8 @@ class BackendService {
           print(response)
           return
         }
-        print(token)
+        //print(token)
+        completionHandler(.success(token as! String))
         
         
       case .failure(let error):
