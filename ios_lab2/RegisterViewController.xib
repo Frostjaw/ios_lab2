@@ -9,8 +9,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController" customModule="ios_lab2" customModuleProvider="target">
             <connections>
-                <outlet property="loginTextField" destination="cz2-ID-acO" id="8kC-KX-f02"/>
                 <outlet property="mailTextField" destination="Vd6-QG-xyj" id="qVl-I0-9BJ"/>
+                <outlet property="nameTextField" destination="cz2-ID-acO" id="8kC-KX-f02"/>
                 <outlet property="passwordTextField" destination="Kjc-T8-SI4" id="g2g-9E-gKg"/>
                 <outlet property="repeatPasswordTextField" destination="wK1-jn-h8x" id="1nE-bf-PXA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -30,7 +30,7 @@
                             <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ваш логин" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cz2-ID-acO" customClass="TextFieldWithBottomBorder" customModule="ios_lab2" customModuleProvider="target">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ваше имя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cz2-ID-acO" customClass="TextFieldWithBottomBorder" customModule="ios_lab2" customModuleProvider="target">
                             <rect key="frame" x="20" y="70" width="334" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="jh2-ta-cFe"/>

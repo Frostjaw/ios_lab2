@@ -16,7 +16,7 @@ class BackendService {
     static let LOGIN_URL = "login"
   }
   
-  func registerUser(email: String, name: String, password: String, completionHandler: @escaping (Result<[String: Any]>) -> Void) {
+  func registerUser(email: String, name: String, password: String, completionHandler: @escaping (Result<UserResult>) -> Void) {
     
     let parameters = [
       "email": email,
@@ -24,51 +24,64 @@ class BackendService {
       "password": password
     ]
     
-    Alamofire.request(Constants.BASE_URL + Constants.REGISTER_URL, method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+    Alamofire.request(Constants.BASE_URL + Constants.REGISTER_URL, method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseData { response in
       switch response.result {
-      case .success(let value as [String: Any]):
-        completionHandler(.success(value))
-        //print("Request completed, response: \(value)")
+      case .success(let response):
+        do {
+          let payload = try JSONDecoder().decode(UserResult.self, from: response)
+          completionHandler(.success(payload))
+        } catch _ {
+          do {
+            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+            let message = json!["message"]!
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
+            completionHandler(.failure(error))
+          }
+          catch {
+            print("Serialiaization error")
+          }
+
+        }
         
       case .failure(let error):
         completionHandler(.failure(error))
-      //print ("Request failed with error: \(error)")
-      default:
-        fatalError("received non-dictionary JSON response")
+
       }
       
     }
     
   }
   
-  func loginUser(email: String, password: String, completionHandler: @escaping (Result<String>) -> Void) {
+  func loginUser(email: String, password: String, completionHandler: @escaping (Result<UserResult>) -> Void) {
     
     let parameters = [
       "email": email,
       "password": password
     ]
     
-    Alamofire.request(Constants.BASE_URL + Constants.LOGIN_URL, method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+    Alamofire.request(Constants.BASE_URL + Constants.LOGIN_URL, method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseData { response in
       switch response.result {
-      case .success(let response as [String: Any]):
-        //completionHandler(.success(response))
-        //print("Request completed, response: \(response)")
-        guard let token = response["api_token"] else {
-          print(response)
-          return
+      case.success(let response):
+        do {
+          let payload = try JSONDecoder().decode(UserResult.self, from: response)
+          completionHandler(.success(payload))
+        } catch _ {
+          do {
+            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+            let message = json!["message"]!
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
+            completionHandler(.failure(error))
+          }
+          catch {
+            print("Serialiaization error")
+          }
+
         }
-        //print(token)
-        completionHandler(.success(token as! String))
-        
-        
+
       case .failure(let error):
         completionHandler(.failure(error))
-        //print ("Request failed with error: \(error)")
-        
-      default:
-        fatalError("received non-dictionary JSON response")
       }
-      
+
     }
     
   }

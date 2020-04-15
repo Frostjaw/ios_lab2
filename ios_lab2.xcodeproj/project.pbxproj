@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		854B543E24470F8300F660F9 /* UserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854B543D24470F8300F660F9 /* UserResult.swift */; };
 		855948032440836400E6B115 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855948012440836400E6B115 /* RegisterViewController.swift */; };
 		855948042440836400E6B115 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 855948022440836400E6B115 /* RegisterViewController.xib */; };
 		8564278224446E92005973CC /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8564278124446E92005973CC /* RoundedButton.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		40D4BD14C4A30B3084DEAFFA /* Pods-ios_lab2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_lab2.release.xcconfig"; path = "Target Support Files/Pods-ios_lab2/Pods-ios_lab2.release.xcconfig"; sourceTree = "<group>"; };
 		6D660459856C8E26FBF882B3 /* Pods_ios_lab2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_lab2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		854B543D24470F8300F660F9 /* UserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResult.swift; sourceTree = "<group>"; };
 		855948012440836400E6B115 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		855948022440836400E6B115 /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
 		8564278124446E92005973CC /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				856B04822445AACD00902698 /* MainViewController.xib */,
 				856B04872445B0DE00902698 /* NotForgotNavigationBar.xib */,
 				856B04892445CB7900902698 /* User.swift */,
+				854B543D24470F8300F660F9 /* UserResult.swift */,
 			);
 			path = ios_lab2;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				854B543E24470F8300F660F9 /* UserResult.swift in Sources */,
 				8564278A2444979A005973CC /* BackendService.swift in Sources */,
 				855948032440836400E6B115 /* RegisterViewController.swift in Sources */,
 				85C514EF243F0F6A00117BC4 /* LogInViewController.swift in Sources */,

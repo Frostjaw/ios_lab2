@@ -10,7 +10,7 @@ import UIKit
 
 class RegisterViewController: UIViewController {
   
-  @IBOutlet weak var loginTextField: TextFieldWithBottomBorder!
+  @IBOutlet weak var nameTextField: TextFieldWithBottomBorder!
   @IBOutlet weak var mailTextField: TextFieldWithBottomBorder!
   @IBOutlet weak var passwordTextField: TextFieldWithBottomBorder!
   @IBOutlet weak var repeatPasswordTextField: TextFieldWithBottomBorder!
@@ -23,12 +23,16 @@ class RegisterViewController: UIViewController {
   }
   
   @IBAction func registerButtonTouchDown(_ sender: Any) {
-    guard let login = loginTextField.text, !login.isEmpty else {
-      showAlert(message: "Введите логин")
+    guard let name = nameTextField.text, !name.isEmpty else {
+      showAlert(message: "Введите имя")
       return
     }
     guard let mail = mailTextField.text, !mail.isEmpty else{
       showAlert(message: "Введите почту")
+      return
+    }
+    guard isValidEmail(email: mail) else {
+      showAlert(message: "Не верный формат почты")
       return
     }
     guard let password = passwordTextField.text, !password.isEmpty else {
@@ -44,14 +48,16 @@ class RegisterViewController: UIViewController {
       return
     }
     
-    backendService.registerUser(email: mail, name: login, password: password) { result in
+    backendService.registerUser(email: mail, name: name, password: password) { result in
       switch result {
       case .failure(let error):
-        print(error)
+        self.showAlert(message: error.localizedDescription)
         
       case .success(let response):
-        //print(response)
-        self.showAlert(message: response["message"] as! String)
+        let user = User(login: self.mailTextField.text!, password: self.mailTextField.text!, token: response.token!)
+        user.saveData()
+        
+        self.openMainViewController()
       }
     }
     

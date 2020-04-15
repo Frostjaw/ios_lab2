@@ -14,15 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
     
     self.window = UIWindow(frame: UIScreen.main.bounds)
-    let viewController = LogInViewController()
     
-    //let navController = UINavigationController(rootViewController: viewController)
+    if UserDefaults.standard.string(forKey: "token") == nil {
+      let viewController = LogInViewController()
+      self.window?.rootViewController = viewController
+    } else {
+      let mainViewController = MainViewController()
+      let navController = UINavigationController(rootViewController: mainViewController)
+      self.window?.rootViewController = navController
+    }
     
-    self.window?.rootViewController = viewController
-    //self.window?.rootViewController = navController
     self.window?.makeKeyAndVisible()
     
     return true

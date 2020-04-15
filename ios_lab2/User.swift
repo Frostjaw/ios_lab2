@@ -9,12 +9,20 @@
 import Foundation
 
 class User {
-  var login: String
-  var mail: String
+  var login: String?
+  var password: String?
   var token: String?
   
-  init(login: String, mail: String) {
+  init(login: String, password: String, token: String) {
     self.login = login
-    self.mail = mail
+    self.password = password
+    self.token = token
+  }
+  
+  func saveData() {
+    let defaults = UserDefaults.standard
+    defaults.set(self.login, forKey: "login")
+    defaults.set(self.password, forKey: "password")
+    defaults.set(self.token, forKey: "token")
   }
 }

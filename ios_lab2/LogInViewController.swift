@@ -21,19 +21,24 @@ class LogInViewController: UIViewController {
       showAlert(message: "Введите почту")
       return
     }
+    guard isValidEmail(email: mail) else {
+      showAlert(message: "Не верный формат почты")
+      return
+    }
     guard let password = passwordTextField.text, !password.isEmpty else{
       showAlert(message: "Введите пароль")
       return
     }
-    
     backendService.loginUser(email: mail, password: password) { result in
       switch result {
       case .failure(let error):
-        print(error)
+        self.showAlert(message: error.localizedDescription)
         
       case .success(let response):
-        print(response)
-        //self.showAlert(message: response["message"] as! String)
+        let user = User(login: self.mailTextField.text!, password: self.mailTextField.text!, token: response.token!)
+        user.saveData()
+        
+        self.openMainViewController()
       }
     }
     
