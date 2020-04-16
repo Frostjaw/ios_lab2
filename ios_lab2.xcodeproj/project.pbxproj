@@ -17,8 +17,9 @@
 		8564278A2444979A005973CC /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856427892444979A005973CC /* BackendService.swift */; };
 		856B04832445AACD00902698 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856B04812445AACD00902698 /* MainViewController.swift */; };
 		856B04842445AACD00902698 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 856B04822445AACD00902698 /* MainViewController.xib */; };
-		856B04882445B0DE00902698 /* NotForgotNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 856B04872445B0DE00902698 /* NotForgotNavigationBar.xib */; };
 		856B048A2445CB7900902698 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856B04892445CB7900902698 /* User.swift */; };
+		8573649D244869C100B3D9D2 /* CaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8573649B244869C100B3D9D2 /* CaseTableViewCell.swift */; };
+		8573649E244869C100B3D9D2 /* CaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8573649C244869C100B3D9D2 /* CaseTableViewCell.xib */; };
 		859220A6243F34A400867F7B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 859220A5243F34A400867F7B /* LaunchScreen.xib */; };
 		85BAED71243ED26700255151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BAED70243ED26700255151 /* AppDelegate.swift */; };
 		85BAED7A243ED26900255151 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85BAED79243ED26900255151 /* Assets.xcassets */; };
@@ -40,8 +41,9 @@
 		856427892444979A005973CC /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
 		856B04812445AACD00902698 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		856B04822445AACD00902698 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		856B04872445B0DE00902698 /* NotForgotNavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotForgotNavigationBar.xib; sourceTree = "<group>"; };
 		856B04892445CB7900902698 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8573649B244869C100B3D9D2 /* CaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseTableViewCell.swift; sourceTree = "<group>"; };
+		8573649C244869C100B3D9D2 /* CaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CaseTableViewCell.xib; sourceTree = "<group>"; };
 		859220A5243F34A400867F7B /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		85BAED6D243ED26700255151 /* ios_lab2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_lab2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85BAED70243ED26700255151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,9 +110,10 @@
 				856427892444979A005973CC /* BackendService.swift */,
 				856B04812445AACD00902698 /* MainViewController.swift */,
 				856B04822445AACD00902698 /* MainViewController.xib */,
-				856B04872445B0DE00902698 /* NotForgotNavigationBar.xib */,
 				856B04892445CB7900902698 /* User.swift */,
 				854B543D24470F8300F660F9 /* UserResult.swift */,
+				8573649B244869C100B3D9D2 /* CaseTableViewCell.swift */,
+				8573649C244869C100B3D9D2 /* CaseTableViewCell.xib */,
 			);
 			path = ios_lab2;
 			sourceTree = "<group>";
@@ -187,8 +190,8 @@
 				85C514F0243F0F6A00117BC4 /* LogInViewController.xib in Resources */,
 				859220A6243F34A400867F7B /* LaunchScreen.xib in Resources */,
 				856B04842445AACD00902698 /* MainViewController.xib in Resources */,
+				8573649E244869C100B3D9D2 /* CaseTableViewCell.xib in Resources */,
 				85BAED7A243ED26900255151 /* Assets.xcassets in Resources */,
-				856B04882445B0DE00902698 /* NotForgotNavigationBar.xib in Resources */,
 				855948042440836400E6B115 /* RegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				854B543E24470F8300F660F9 /* UserResult.swift in Sources */,
+				8573649D244869C100B3D9D2 /* CaseTableViewCell.swift in Sources */,
 				8564278A2444979A005973CC /* BackendService.swift in Sources */,
 				855948032440836400E6B115 /* RegisterViewController.swift in Sources */,
 				85C514EF243F0F6A00117BC4 /* LogInViewController.swift in Sources */,

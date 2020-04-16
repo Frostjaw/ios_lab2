@@ -9,7 +9,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="ios_lab2" customModuleProvider="target">
             <connections>
+                <outlet property="imageLabel" destination="YDv-Yh-7q7" id="Ccb-AG-Gwb"/>
                 <outlet property="placeholderImageView" destination="Zrf-U3-CW6" id="yOY-jF-DQs"/>
+                <outlet property="tableView" destination="yCE-WS-GbK" id="jFQ-UT-Dha"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,19 +20,36 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zrf-U3-CW6">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zrf-U3-CW6">
                     <rect key="frame" x="47" y="328" width="320" height="240"/>
                 </imageView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас пока нет дел. Счастливый вы человек!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDv-Yh-7q7">
+                    <rect key="frame" x="74" y="424.5" width="266" height="57.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yCE-WS-GbK">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <inset key="separatorInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Zrf-U3-CW6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="4wD-Qv-MYL"/>
+                <constraint firstItem="yCE-WS-GbK" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="GgC-kd-viW"/>
                 <constraint firstItem="Zrf-U3-CW6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="HQo-dh-7gV"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Zrf-U3-CW6" secondAttribute="trailing" constant="28" id="OlG-aU-ts8"/>
+                <constraint firstAttribute="bottom" secondItem="yCE-WS-GbK" secondAttribute="bottom" id="YY9-53-eYw"/>
                 <constraint firstItem="Zrf-U3-CW6" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="mJM-7V-KVk"/>
+                <constraint firstItem="yCE-WS-GbK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nMN-JQ-tY9"/>
+                <constraint firstItem="YDv-Yh-7q7" firstAttribute="centerX" secondItem="Zrf-U3-CW6" secondAttribute="centerX" id="nbp-fC-Ilg"/>
+                <constraint firstItem="yCE-WS-GbK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tdk-HU-gBD"/>
+                <constraint firstItem="YDv-Yh-7q7" firstAttribute="centerY" secondItem="Zrf-U3-CW6" secondAttribute="centerY" id="vd2-XR-mju"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="132" y="107"/>
+            <point key="canvasLocation" x="131.8840579710145" y="106.47321428571428"/>
         </view>
     </objects>
 </document>

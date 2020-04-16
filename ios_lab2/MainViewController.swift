@@ -12,20 +12,20 @@ import Kingfisher
 class MainViewController: UIViewController {
   
   @IBOutlet weak var placeholderImageView: UIImageView!
-    
+  @IBOutlet weak var imageLabel: UILabel!
+  @IBOutlet weak var tableView: UITableView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     setupNavigationBar()
     loadImage()
-    //loadNavigationBar()
-    //loadNavigationController()
+    setupTableView()
   }
   
   func loadImage() {    
     let url = URL(string: "https://loremflickr.com/640/480/holiday")
-    let processor = DownsamplingImageProcessor(size: placeholderImageView.bounds.size)
-      |> RoundCornerImageProcessor(cornerRadius: 10)
+    let processor = RoundCornerImageProcessor(cornerRadius: 10)
     placeholderImageView.kf.indicatorType = .activity
     placeholderImageView.kf.setImage(
         with: url,
@@ -33,6 +33,8 @@ class MainViewController: UIViewController {
             .processor(processor),
             .scaleFactor(UIScreen.main.scale)
         ])
+    
+    imageLabel.isHidden = false
   }
   
   func setupNavigationBar () {
@@ -53,26 +55,13 @@ class MainViewController: UIViewController {
     
   }
   
-//  func loadNavigationController() {
-//    let navController = UINavigationController(rootViewController: self)
-//  }
-//
-//  func loadNavigationBar() {
-//
-//    let screenWidth = UIScreen.main.bounds.size.width
-//
-//    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 140))
-//    navigationBar.barTintColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
-//    view.addSubview(navigationBar)
-//
-//    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-//    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
-//
-//    let navigationItem = UINavigationItem(title: "Title")
-//    navigationItem.leftBarButtonItem = cancelButton
-//    navigationItem.rightBarButtonItem = doneButton
-//
-//    navigationBar.items = [navigationItem]
-//  }
+  func setupTableView() {
+    
+    let idCell = "caseCell"
+    
+    tableView.dataSource = self
+    tableView.delegate = self
+    tableView.register(UINib(nibName: "CaseTableViewCell", bundle: nil), forCellReuseIdentifier: idCell)
+  }
   
 }
