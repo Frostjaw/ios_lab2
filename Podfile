@@ -7,5 +7,6 @@ target 'ios_lab2' do
 
   pod 'Alamofire', '~> 4.0'
   pod 'Kingfisher', '~> 5.0'
+  pod 'IQKeyboardManagerSwift', '6.5.0'
 
 end

@@ -8,16 +8,10 @@
 
 import Foundation
 
-class User {
+struct User {
   var login: String?
   var password: String?
   var token: String?
-  
-  init(login: String, password: String, token: String) {
-    self.login = login
-    self.password = password
-    self.token = token
-  }
   
   func saveData() {
     let defaults = UserDefaults.standard

@@ -25,6 +25,10 @@
 		85BAED7A243ED26900255151 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85BAED79243ED26900255151 /* Assets.xcassets */; };
 		85C514EF243F0F6A00117BC4 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C514ED243F0F6A00117BC4 /* LogInViewController.swift */; };
 		85C514F0243F0F6A00117BC4 /* LogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85C514EE243F0F6A00117BC4 /* LogInViewController.xib */; };
+		85E676F424499D4F00AAB3C4 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E676F324499D4F00AAB3C4 /* Task.swift */; };
+		85E676F624499DC000AAB3C4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E676F524499DC000AAB3C4 /* Category.swift */; };
+		85E676F824499E4900AAB3C4 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E676F724499E4900AAB3C4 /* Priority.swift */; };
+		85E677012449A69700AAB3C4 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E677002449A69700AAB3C4 /* TaskModel.swift */; };
 		A05857BD66B3407BFB42A90A /* Pods_ios_lab2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D660459856C8E26FBF882B3 /* Pods_ios_lab2.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +55,10 @@
 		85BAED7E243ED26900255151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85C514ED243F0F6A00117BC4 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		85C514EE243F0F6A00117BC4 /* LogInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogInViewController.xib; sourceTree = "<group>"; };
+		85E676F324499D4F00AAB3C4 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		85E676F524499DC000AAB3C4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		85E676F724499E4900AAB3C4 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
+		85E677002449A69700AAB3C4 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		F4884752176603A278443D30 /* Pods-ios_lab2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_lab2.debug.xcconfig"; path = "Target Support Files/Pods-ios_lab2/Pods-ios_lab2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,27 +103,79 @@
 		85BAED6F243ED26700255151 /* ios_lab2 */ = {
 			isa = PBXGroup;
 			children = (
+				85E676FA2449A05400AAB3C4 /* ViewControllers */,
+				85E676FC2449A3E600AAB3C4 /* Views */,
+				85E676F924499F8600AAB3C4 /* Model */,
+				85E676FF2449A50100AAB3C4 /* CustomFiles */,
+				85E676FB2449A3A900AAB3C4 /* Resources */,
+				85E676FE2449A42F00AAB3C4 /* SupportFiles */,
+			);
+			path = ios_lab2;
+			sourceTree = "<group>";
+		};
+		85E676F924499F8600AAB3C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				856B04892445CB7900902698 /* User.swift */,
+				854B543D24470F8300F660F9 /* UserResult.swift */,
+				85E676F324499D4F00AAB3C4 /* Task.swift */,
+				85E676F524499DC000AAB3C4 /* Category.swift */,
+				85E676F724499E4900AAB3C4 /* Priority.swift */,
+				856427892444979A005973CC /* BackendService.swift */,
+				85E677002449A69700AAB3C4 /* TaskModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		85E676FA2449A05400AAB3C4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
 				85C514ED243F0F6A00117BC4 /* LogInViewController.swift */,
-				85C514EE243F0F6A00117BC4 /* LogInViewController.xib */,
-				85BAED70243ED26700255151 /* AppDelegate.swift */,
-				85BAED79243ED26900255151 /* Assets.xcassets */,
-				85BAED7E243ED26900255151 /* Info.plist */,
-				859220A5243F34A400867F7B /* LaunchScreen.xib */,
 				855948012440836400E6B115 /* RegisterViewController.swift */,
+				856B04812445AACD00902698 /* MainViewController.swift */,
+				8573649B244869C100B3D9D2 /* CaseTableViewCell.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		85E676FB2449A3A900AAB3C4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				85BAED79243ED26900255151 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		85E676FC2449A3E600AAB3C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				859220A5243F34A400867F7B /* LaunchScreen.xib */,
+				85C514EE243F0F6A00117BC4 /* LogInViewController.xib */,
 				855948022440836400E6B115 /* RegisterViewController.xib */,
+				856B04822445AACD00902698 /* MainViewController.xib */,
+				8573649C244869C100B3D9D2 /* CaseTableViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		85E676FE2449A42F00AAB3C4 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				85BAED70243ED26700255151 /* AppDelegate.swift */,
+				85BAED7E243ED26900255151 /* Info.plist */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		85E676FF2449A50100AAB3C4 /* CustomFiles */ = {
+			isa = PBXGroup;
+			children = (
 				8564278124446E92005973CC /* RoundedButton.swift */,
 				85642783244471CB005973CC /* RoundedView.swift */,
 				85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */,
 				8564278724448E62005973CC /* ViewControllerExtensions.swift */,
-				856427892444979A005973CC /* BackendService.swift */,
-				856B04812445AACD00902698 /* MainViewController.swift */,
-				856B04822445AACD00902698 /* MainViewController.xib */,
-				856B04892445CB7900902698 /* User.swift */,
-				854B543D24470F8300F660F9 /* UserResult.swift */,
-				8573649B244869C100B3D9D2 /* CaseTableViewCell.swift */,
-				8573649C244869C100B3D9D2 /* CaseTableViewCell.xib */,
 			);
-			path = ios_lab2;
+			path = CustomFiles;
 			sourceTree = "<group>";
 		};
 		B5D7B30B9F6178492B247465 /* Pods */ = {
@@ -253,10 +313,14 @@
 				85BAED71243ED26700255151 /* AppDelegate.swift in Sources */,
 				85642784244471CB005973CC /* RoundedView.swift in Sources */,
 				85642786244474FD005973CC /* TextFieldWithBottomBorder.swift in Sources */,
+				85E676F824499E4900AAB3C4 /* Priority.swift in Sources */,
+				85E676F424499D4F00AAB3C4 /* Task.swift in Sources */,
 				856B04832445AACD00902698 /* MainViewController.swift in Sources */,
 				8564278224446E92005973CC /* RoundedButton.swift in Sources */,
 				856B048A2445CB7900902698 /* User.swift in Sources */,
 				8564278824448E62005973CC /* ViewControllerExtensions.swift in Sources */,
+				85E677012449A69700AAB3C4 /* TaskModel.swift in Sources */,
+				85E676F624499DC000AAB3C4 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ios_lab2/Info.plist;
+				INFOPLIST_FILE = ios_lab2/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -401,7 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ios_lab2/Info.plist;
+				INFOPLIST_FILE = ios_lab2/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
