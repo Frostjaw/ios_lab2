@@ -34,4 +34,9 @@ extension UIViewController {
     let navigationController = UINavigationController(rootViewController: mainViewController)
     self.present(navigationController, animated: true, completion: nil)
   }
+  
+  func openLogInViewController() {
+    let logInViewController = LogInViewController()
+    self.present(logInViewController, animated: true, completion: nil)
+  }
 }

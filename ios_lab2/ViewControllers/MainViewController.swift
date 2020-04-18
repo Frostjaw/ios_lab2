@@ -20,18 +20,24 @@ class MainViewController: UIViewController {
     static let caseTableViewCellFileName = "CaseTableViewCell"
   }
   
+  private let userId = UserDefaults.standard.string(forKey: "token")
   private let taskModel = TaskModel()
   private var categories = [Category]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    guard taskModel.backendService.isConnectedToInternet() else {
+      exit(0)
+    }
     taskModel.delegate = self
-    taskModel.requestData()
+    //taskModel.requestCategories(id: userId!)
+    //taskModel.requestTasks(id: userId!)
+    taskModel.requestData(id: userId!)
+    self.setupNavigationBar()
+    self.setupTableView()
+    self.loadImage()
     
-    setupNavigationBar()
-    setupTableView()
-    loadImage()
   }
   
   func loadImage() {    
@@ -39,11 +45,11 @@ class MainViewController: UIViewController {
     let processor = RoundCornerImageProcessor(cornerRadius: 10)
     placeholderImageView.kf.indicatorType = .activity
     placeholderImageView.kf.setImage(
-        with: url,
-        options: [
-            .processor(processor),
-            .scaleFactor(UIScreen.main.scale)
-        ])
+      with: url,
+      options: [
+        .processor(processor),
+        .scaleFactor(UIScreen.main.scale)
+    ])
     
     imageLabel.isHidden = false
   }
@@ -59,18 +65,40 @@ class MainViewController: UIViewController {
     titleLabel.text = "Not Forgot!";
     
     self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: titleLabel)
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+    
+    let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+    let logOutButton = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logOut))
+    self.navigationItem.rightBarButtonItems = [logOutButton, addButton]
   }
   
   @objc func addTapped() {
     
   }
   
-  func setupTableView() {
+  @objc func logOut() {
+    let defaults = UserDefaults.standard
+    defaults.removeObject(forKey: "login")
+    defaults.removeObject(forKey: "password")
+    defaults.removeObject(forKey: "token")
     
+    self.openLogInViewController()
+  }
+  
+  func setupTableView() {
     tableView.dataSource = self
     tableView.delegate = self
     tableView.register(UINib(nibName: Constants.caseTableViewCellFileName, bundle: nil), forCellReuseIdentifier: Constants.idCell)
+    
+    let refreshControl = UIRefreshControl()
+    refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+    tableView.refreshControl = refreshControl
+  }
+  
+  @objc func refreshTable() {
+    
+    //reload data here
+    tableView.reloadData()
+    tableView.refreshControl?.endRefreshing()
   }
   
 }
@@ -84,7 +112,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   }
   
   public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return categories[section].tasks.count
+    return categories[section].tasks?.count ?? 0
   }
   
   public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -95,8 +123,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: Constants.idCell) as! CaseTableViewCell
-    cell.titleLabel.text = categories[indexPath.section].tasks[indexPath.row].title
-    cell.subTitleLabel.text = categories[indexPath.section].tasks[indexPath.row].description
+    cell.colorView.backgroundColor = hexStringToUIColor(hex: categories[indexPath.section].tasks?[indexPath.row].priority.color ?? "#FFFFFF")
+    cell.titleLabel.text = categories[indexPath.section].tasks?[indexPath.row].title
+    cell.subTitleLabel.text = categories[indexPath.section].tasks?[indexPath.row].description
     return cell
   }
   
@@ -117,7 +146,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   
   public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      categories[indexPath.section].tasks.remove(at: indexPath.row)
+      categories[indexPath.section].tasks!.remove(at: indexPath.row)
       tableView.deleteRows(at: [indexPath], with: .automatic)
     }
   }
@@ -126,11 +155,36 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - task model delegate
 extension MainViewController: TaskModelDelegate {
-  
   func didReceiveDataUpdate(data: [Category]){
-    
     self.categories = data
-    //print(data)
+    tableView.reloadData()
   }
+  
 }
+
+// MARK: - convert hex string to UIColor
+extension MainViewController {
+  func hexStringToUIColor (hex:String) -> UIColor {
+    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     
+    if (cString.hasPrefix("#")) {
+      cString.remove(at: cString.startIndex)
+    }
+    
+    if ((cString.count) != 6) {
+      return UIColor.gray
+    }
+    
+    var rgbValue:UInt64 = 0
+    Scanner(string: cString).scanHexInt64(&rgbValue)
+    
+    return UIColor(
+      red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+      green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+      blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+      alpha: CGFloat(1.0)
+    )
+  }
+  
+}
+

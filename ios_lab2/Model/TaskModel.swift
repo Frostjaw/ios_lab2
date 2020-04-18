@@ -10,29 +10,55 @@ import Foundation
 
 class TaskModel {
   
-  var tasks: [Task]?
-  
+  var categories = [Category]()
   weak var delegate: TaskModelDelegate?
+  var backendService = BackendService()
   
-  func requestData() {
+  func requestData(id: String) {
     
-    //test
-    var categories = [Category]()
+    backendService.requestCategories(id: id) { result in
+      switch result {
+      case .failure(let error):
+        print(error.localizedDescription)
+        
+      case .success(let response):
+        self.categories = response
+        self.requestTasks(id: id)
+      }
+    }
     
-    let importantPriority = Priority(id: 1, name: "important", color: "#EF7004D")
-    let task1 = Task(id: 1, title: "Test title 1", description: "Test description 1", done: 0, deadline: 123, priority: importantPriority, created: 100)
-    let task2 = Task(id: 2, title: "Test title 2", description: "Test description 2", done: 0, deadline: 123, priority: importantPriority, created: 100)
-    let task3 = Task(id: 3, title: "Test title 3", description: "Test description 3", done: 0, deadline: 123, priority: importantPriority, created: 100)
-    let workCategory = Category(id: 1, name: "work", tasks: [task1, task2])
-    let studyCategory = Category(id: 2, name: "study", tasks: [task3])
+  }
+  
+  func requestTasks(id: String) {
     
-    categories.append(workCategory)
-    categories.append(studyCategory)
+    backendService.requestTasks(id: id) { result in
+      switch result {
+      case .failure(let error):
+        print(error.localizedDescription)
+        
+      case .success(let response):
+        let tasks = response
+        for task in tasks {
+          for (index, _) in self.categories.enumerated() {
+            if task.category.id == self.categories[index].id {
+              if self.categories[index].tasks == nil {
+                self.categories[index].tasks = [Task]()
+              }
+              self.categories[index].tasks?.append(task)
+            }
+          }
+        }
+        
+        for (index, _) in self.categories.enumerated().reversed() {
+          if self.categories[index].tasks == nil {
+            self.categories.remove(at: index)
+          }
+        }
+        
+        self.delegate?.didReceiveDataUpdate(data: self.categories)
+      }
+    }
     
-    // receive and parse
-    //let data = "data from whatever"
-    
-    delegate?.didReceiveDataUpdate(data: categories)
   }
 }
 

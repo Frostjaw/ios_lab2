@@ -13,3 +13,18 @@ struct Priority {
   var name: String
   var color: String
 }
+
+extension Priority: Decodable {
+  enum CodingKeys: String, CodingKey {
+    case id
+    case name
+    case color
+  }
+  
+  init(from: Decoder) throws {
+    let values = try from.container(keyedBy: CodingKeys.self)
+    self.id = try values.decode(Int.self, forKey: .id)
+    self.name = try values.decode(String.self, forKey: .name)
+    self.color = try values.decode(String.self, forKey: .color)
+  }
+}
