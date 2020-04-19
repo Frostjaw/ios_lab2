@@ -28,12 +28,12 @@ class MainViewController: UIViewController {
     super.viewDidLoad()
     
     guard taskModel.backendService.isConnectedToInternet() else {
-      exit(0)
+      self.showExitAlert(message: "Отсутствует интернет соединение")
+      return
     }
     taskModel.delegate = self
-    //taskModel.requestCategories(id: userId!)
-    //taskModel.requestTasks(id: userId!)
     taskModel.requestData(id: userId!)
+    
     self.setupNavigationBar()
     self.setupTableView()
     self.loadImage()
@@ -63,24 +63,21 @@ class MainViewController: UIViewController {
     titleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     titleLabel.font = UIFont.boldSystemFont(ofSize: 28.0)
     titleLabel.text = "Not Forgot!";
-    
     self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: titleLabel)
     
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Not Forgot!", style: .plain, target: self, action: nil)
     let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
     let logOutButton = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logOut))
     self.navigationItem.rightBarButtonItems = [logOutButton, addButton]
   }
   
+  
   @objc func addTapped() {
-    
+    self.navigationController?.pushViewController(CreateTaskViewController(), animated: true)
   }
   
   @objc func logOut() {
-    let defaults = UserDefaults.standard
-    defaults.removeObject(forKey: "login")
-    defaults.removeObject(forKey: "password")
-    defaults.removeObject(forKey: "token")
-    
+    self.deleteUserData()
     self.openLogInViewController()
   }
   
@@ -136,7 +133,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   
   // MARK: - select cell
   public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("\(indexPath.section), \(indexPath.row)")
+    let taskDetailsViewController = TaskDetailsViewController()
+    taskDetailsViewController.task = categories[indexPath.section].tasks?[indexPath.row]
+    self.navigationController?.pushViewController(taskDetailsViewController, animated: true)
+    self.tableView.deselectRow(at: indexPath, animated: true)
   }
   
   // MARK: - swipe-to-delete
@@ -156,8 +156,16 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - task model delegate
 extension MainViewController: TaskModelDelegate {
   func didReceiveDataUpdate(data: [Category]){
+    
     self.categories = data
-    tableView.reloadData()
+    guard self.categories.isEmpty else {
+      placeholderImageView.isHidden = true
+      imageLabel.isHidden = true
+      tableView.isHidden = false
+      tableView.reloadData()
+      return
+    }
+
   }
   
 }

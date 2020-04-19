@@ -35,9 +35,7 @@ class LogInViewController: UIViewController {
         self.showAlert(message: error.localizedDescription)
         
       case .success(let response):
-        let user = User(login: self.mailTextField.text!, password: self.mailTextField.text!, token: response.token!)
-        user.saveData()
-        print(response.token!)
+        self.saveUserData(login: self.mailTextField.text!, password: self.mailTextField.text!, token: response.token)
         
         self.openMainViewController()
       }

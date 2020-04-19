@@ -19,7 +19,7 @@ class BackendService {
     static let TASKS_URL = "tasks"
   }
   
-  func registerUser(email: String, name: String, password: String, completionHandler: @escaping (Result<UserResult>) -> Void) {
+  func registerUser(email: String, name: String, password: String, completionHandler: @escaping (Result<TokenResult>) -> Void) {
     
     let parameters = [
       "email": email,
@@ -31,7 +31,7 @@ class BackendService {
       switch response.result {
       case .success(let response):
         do {
-          let payload = try JSONDecoder().decode(UserResult.self, from: response)
+          let payload = try JSONDecoder().decode(TokenResult.self, from: response)
           completionHandler(.success(payload))
         } catch _ {
           do {
@@ -55,7 +55,7 @@ class BackendService {
     
   }
   
-  func loginUser(email: String, password: String, completionHandler: @escaping (Result<UserResult>) -> Void) {
+  func loginUser(email: String, password: String, completionHandler: @escaping (Result<TokenResult>) -> Void) {
     
     let parameters = [
       "email": email,
@@ -66,7 +66,7 @@ class BackendService {
       switch response.result {
       case.success(let response):
         do {
-          let payload = try JSONDecoder().decode(UserResult.self, from: response)
+          let payload = try JSONDecoder().decode(TokenResult.self, from: response)
           completionHandler(.success(payload))
         } catch _ {
           do {

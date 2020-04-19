@@ -11,21 +11,21 @@ import UIKit
 class RoundedButton: UIButton {
   
   enum Constants {
-    static let buttonsCornerRadius = CGFloat(8)
+    static let buttonDefaultCornerRadius = CGFloat(8)
   }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    setupButton()
+    setCornerRadius(cornerRadius: Constants.buttonDefaultCornerRadius)
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    setupButton()
+    setCornerRadius(cornerRadius: Constants.buttonDefaultCornerRadius)
   }
   
-  private func setupButton(){
-    layer.cornerRadius = Constants.buttonsCornerRadius
+  func setCornerRadius(cornerRadius: CGFloat){
+    layer.cornerRadius = cornerRadius
     layer.masksToBounds = true
   }
 }
