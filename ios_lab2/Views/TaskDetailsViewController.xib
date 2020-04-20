@@ -14,6 +14,7 @@
                 <outlet property="deadLineLabel" destination="x7I-c3-MEp" id="jr3-iz-6Fu"/>
                 <outlet property="descriptionTextView" destination="3qj-f9-1OJ" id="BN6-yM-p9g"/>
                 <outlet property="doneLabel" destination="DmX-wG-Kcd" id="xNj-db-9Qz"/>
+                <outlet property="editTaskButton" destination="Fks-7N-BQZ" id="2MH-Dr-WsO"/>
                 <outlet property="priorityButton" destination="RVF-js-rcb" id="kuB-7l-GlP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -117,6 +118,9 @@
                     <state key="normal" title="Редактировать">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="editButtonTouchDown:" destination="-1" eventType="touchDown" id="2Cy-Zr-dmM"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

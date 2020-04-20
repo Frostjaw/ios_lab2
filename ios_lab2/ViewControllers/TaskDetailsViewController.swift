@@ -16,6 +16,7 @@ class TaskDetailsViewController: UIViewController {
   @IBOutlet weak var categoryLabel: UILabel!
   @IBOutlet weak var deadLineLabel: UILabel!
   @IBOutlet weak var priorityButton: RoundedButton!
+  @IBOutlet weak var editTaskButton: RoundedButton!
   
   var task: Task?
   
@@ -26,12 +27,19 @@ class TaskDetailsViewController: UIViewController {
     setupLabels()
   }
   
+  
+  @IBAction func editButtonTouchDown(_ sender: Any) {
+    let editTaskViewController = EditTaskViewController()
+    editTaskViewController.task = self.task
+    self.navigationController?.pushViewController(editTaskViewController, animated: true)
+  }
+  
   private func setupNavigationBar () {
     
     let titleLabel = UILabel()
     titleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-    titleLabel.text = "Изменить заметку";
+    titleLabel.text = task?.title;
     self.navigationItem.titleView = titleLabel
   }
   

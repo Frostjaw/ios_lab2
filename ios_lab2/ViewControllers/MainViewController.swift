@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
     
   }
   
-  func loadImage() {    
+  private func loadImage() {
     let url = URL(string: "https://loremflickr.com/640/480/holiday")
     let processor = RoundCornerImageProcessor(cornerRadius: 10)
     placeholderImageView.kf.indicatorType = .activity
@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
     imageLabel.isHidden = false
   }
   
-  func setupNavigationBar () {
+  private func setupNavigationBar () {
     let navigationBar = navigationController?.navigationBar    
     navigationBar?.barTintColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
     navigationBar?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -81,7 +81,7 @@ class MainViewController: UIViewController {
     self.openLogInViewController()
   }
   
-  func setupTableView() {
+  private func setupTableView() {
     tableView.dataSource = self
     tableView.delegate = self
     tableView.register(UINib(nibName: Constants.caseTableViewCellFileName, bundle: nil), forCellReuseIdentifier: Constants.idCell)

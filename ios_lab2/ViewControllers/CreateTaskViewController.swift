@@ -16,7 +16,7 @@ class CreateTaskViewController: UIViewController {
     self.setupNavigationBar()
   }
   
-  func setupNavigationBar () {
+  private func setupNavigationBar () {
     let titleLabel = UILabel()
     titleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)

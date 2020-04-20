@@ -89,39 +89,75 @@ class BackendService {
     
   }
   
-  func requestCategories(id: String, completionHandler: @escaping (Result<[Category]>) -> Void) {
-      let headers = [
-        "Authorization": "Bearer \(UserDefaults.standard.string(forKey: "token")!)"
-      ]
-      
-      Alamofire.request(Constants.BASE_URL + Constants.CATEGORIES_URL, method: HTTPMethod.get, encoding: JSONEncoding.default, headers: headers).responseData { response in
-        switch response.result {
-        case.success(let response):
+  func getCategories(id: String, completionHandler: @escaping (Result<[Category]>) -> Void) {
+    let headers = [
+      "Authorization": "Bearer \(UserDefaults.standard.string(forKey: "token")!)"
+    ]
+    
+    Alamofire.request(Constants.BASE_URL + Constants.CATEGORIES_URL, method: HTTPMethod.get, encoding: JSONEncoding.default, headers: headers).responseData { response in
+      switch response.result {
+      case.success(let response):
+        do {
+          let payload = try JSONDecoder().decode([Category].self, from: response)
+          completionHandler(.success(payload))
+        } catch {
+          print(error.localizedDescription)
           do {
-            let payload = try JSONDecoder().decode([Category].self, from: response)
-            completionHandler(.success(payload))
-          } catch {
-            print(error.localizedDescription)
-  //          do {
-  //            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
-  //            let message = json!["message"]!
-  //            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
-  //            completionHandler(.failure(error))
-  //          }
-  //          catch {
-  //            print("Serialization error")
-  //          }
-            
+            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+            let message = json!["message"]!
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
+            completionHandler(.failure(error))
+          }
+          catch {
+            print("Serialization error")
           }
           
-        case .failure(let error):
-          completionHandler(.failure(error))
         }
+        
+      case .failure(let error):
+        completionHandler(.failure(error))
+      }
+    }
+    
+  }
+  
+  func postCategory(name: String, completionHandler: @escaping (Result<Category>) -> Void) {
+    
+    let headers = [
+      "Authorization": "Bearer \(UserDefaults.standard.string(forKey: "token")!)"
+    ]
+    
+    let parameters = [
+      "name": name
+    ]
+    
+    Alamofire.request(Constants.BASE_URL + Constants.CATEGORIES_URL, method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseData { response in
+      switch response.result {
+      case.success(let response):
+        do {
+          let payload = try JSONDecoder().decode(Category.self, from: response)
+          completionHandler(.success(payload))
+        } catch _ {
+          do {
+            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+            let message = json!["message"]!
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
+            completionHandler(.failure(error))
+          }
+          catch {
+            print("Serialization error")
+          }
+          
+        }
+        
+      case .failure(let error):
+        completionHandler(.failure(error))
       }
       
     }
+  }
   
-  func requestTasks(id: String, completionHandler: @escaping (Result<[Task]>) -> Void) {
+  func getTasks(id: String, completionHandler: @escaping (Result<[Task]>) -> Void) {
     let headers = [
       "Authorization": "Bearer \(UserDefaults.standard.string(forKey: "token")!)"
     ]
@@ -134,15 +170,47 @@ class BackendService {
           completionHandler(.success(payload))
         } catch {
           print(error.localizedDescription)
-//          do {
-//            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
-//            let message = json!["message"]!
-//            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
-//            completionHandler(.failure(error))
-//          }
-//          catch {
-//            print("Serialization error")
-//          }
+          do {
+            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+            let message = json!["message"]!
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
+            completionHandler(.failure(error))
+          }
+          catch {
+            print("Serialization error")
+          }
+          
+        }
+        
+      case .failure(let error):
+        completionHandler(.failure(error))
+      }
+    }
+    
+  }
+  
+  func getPriorities(id: String, completionHandler: @escaping (Result<[Priority]>) -> Void) {
+    let headers = [
+      "Authorization": "Bearer \(UserDefaults.standard.string(forKey: "token")!)"
+    ]
+    
+    Alamofire.request(Constants.BASE_URL + Constants.PRIORITIES_URL, method: HTTPMethod.get, encoding: JSONEncoding.default, headers: headers).responseData { response in
+      switch response.result {
+      case.success(let response):
+        do {
+          let payload = try JSONDecoder().decode([Priority].self, from: response)
+          completionHandler(.success(payload))
+        } catch {
+          print(error.localizedDescription)
+          do {
+            let json = try JSONSerialization.jsonObject(with: response, options: []) as? [String: Any]
+            let message = json!["message"]!
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
+            completionHandler(.failure(error))
+          }
+          catch {
+            print("Serialization error")
+          }
           
         }
         

@@ -16,7 +16,7 @@ class TaskModel {
   
   func requestData(id: String) {
     
-    backendService.requestCategories(id: id) { result in
+    backendService.getCategories(id: id) { result in
       switch result {
       case .failure(let error):
         print(error.localizedDescription)
@@ -31,7 +31,7 @@ class TaskModel {
   
   func requestTasks(id: String) {
     
-    backendService.requestTasks(id: id) { result in
+    backendService.getTasks(id: id) { result in
       switch result {
       case .failure(let error):
         print(error.localizedDescription)
