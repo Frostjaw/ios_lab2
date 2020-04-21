@@ -13,6 +13,8 @@ class CaseTableViewCell: UITableViewCell {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var subTitleLabel: UILabel!
   @IBOutlet weak var colorView: UIView!
+  @IBOutlet weak var doneButton: UIButton!
+  weak var delegate: ButtonTappedDelegate?
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -22,5 +24,10 @@ class CaseTableViewCell: UITableViewCell {
     super.setSelected(selected, animated: animated)
     
   }
+  
+  @IBAction func doneButtonTouchDown(_ sender: Any) {
+    delegate?.buttonTapped(cell: self)
+  }
+  
   
 }

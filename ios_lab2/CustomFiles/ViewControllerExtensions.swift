@@ -65,3 +65,13 @@ extension UIViewController {
     defaults.removeObject(forKey: "token")
   }
 }
+
+// MARK: - pass data protocol
+protocol TaskDataEnteredDelegate: class {
+  func userDidEnterInformation(data: Task)
+}
+
+// MARK: - button tapped protocol
+protocol ButtonTappedDelegate: class {
+  func buttonTapped(cell: CaseTableViewCell)
+}

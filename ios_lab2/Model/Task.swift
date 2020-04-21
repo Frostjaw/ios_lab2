@@ -17,6 +17,7 @@ struct Task {
   var category: Category
   var priority: Priority
   var created: Int
+  
 }
 
 extension Task: Decodable {
@@ -37,7 +38,7 @@ extension Task: Decodable {
     self.id = try values.decode(Int.self, forKey: .id)
     self.title = try values.decode(String.self, forKey: .title)
     self.description = try values.decode(String.self, forKey: .description)
-    self.done = try values.decode(Int.self, forKey: .done)
+    self.done = try (values.decodeIfPresent(Int.self, forKey: .done) ?? 0)
     self.deadline = try values.decode(Int.self, forKey: .deadline)
     self.created = try values.decode(Int.self, forKey: .created)
     self.category = try values.decode(Category.self, forKey: .category)

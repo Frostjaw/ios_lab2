@@ -17,13 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohj-b5-t76">
-                        <rect key="frame" x="16" y="8" width="291" height="21"/>
+                        <rect key="frame" x="16" y="8" width="33.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qea-IJ-GyK">
-                        <rect key="frame" x="16" y="35" width="291" height="18"/>
+                        <rect key="frame" x="16" y="35" width="53" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -35,25 +35,28 @@
                             <constraint firstAttribute="width" constant="8" id="R3A-lX-nMC"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checked" translatesAutoresizingMaskIntoConstraints="NO" id="Bu9-26-VXb">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-Qa-31I">
                         <rect key="frame" x="289" y="22" width="18" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="18" id="8en-yi-mmP"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="D36-vn-16x"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="18" id="PR9-fd-cmF"/>
-                            <constraint firstAttribute="width" constant="18" id="gGg-7x-cXX"/>
+                            <constraint firstAttribute="height" constant="18" id="EKJ-AK-Dsl"/>
+                            <constraint firstAttribute="width" constant="18" id="PS0-yO-Gkj"/>
                         </constraints>
-                    </imageView>
+                        <color key="tintColor" red="0.94901960780000005" green="0.59999999999999998" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                        <state key="normal" backgroundImage="unchecked">
+                            <color key="titleColor" red="0.94901960784313721" green="0.59999999999999998" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="doneButtonTouchDown:" destination="KGk-i7-Jjw" eventType="touchDown" id="S3L-bl-VKD"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Bu9-26-VXb" secondAttribute="trailing" constant="16" id="7kh-Gf-feg"/>
-                    <constraint firstItem="Bu9-26-VXb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="J4p-D5-2z7"/>
+                    <constraint firstItem="MhK-Qa-31I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AgQ-b2-f5J"/>
                     <constraint firstItem="Ohj-b5-t76" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="KKw-c4-iD9"/>
                     <constraint firstAttribute="bottom" secondItem="E57-AH-W6t" secondAttribute="bottom" id="Uw9-od-df2"/>
                     <constraint firstItem="Qea-IJ-GyK" firstAttribute="top" secondItem="Ohj-b5-t76" secondAttribute="bottom" constant="6" id="cEj-B0-W8q"/>
                     <constraint firstItem="E57-AH-W6t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cPb-NU-fKq"/>
-                    <constraint firstItem="Qea-IJ-GyK" firstAttribute="trailing" secondItem="Bu9-26-VXb" secondAttribute="trailing" id="cxb-Z2-6JG"/>
-                    <constraint firstItem="Ohj-b5-t76" firstAttribute="trailing" secondItem="Bu9-26-VXb" secondAttribute="trailing" id="l6d-Tw-pgv"/>
+                    <constraint firstAttribute="trailing" secondItem="MhK-Qa-31I" secondAttribute="trailing" constant="16" id="hku-o9-Gna"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Qea-IJ-GyK" secondAttribute="bottom" constant="8" id="qm5-K3-KU3"/>
                     <constraint firstItem="Qea-IJ-GyK" firstAttribute="leading" secondItem="E57-AH-W6t" secondAttribute="trailing" constant="8" id="ru9-Ug-3Ij"/>
                     <constraint firstItem="E57-AH-W6t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="sZf-Er-mE2"/>
@@ -63,6 +66,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="colorView" destination="E57-AH-W6t" id="6BV-o7-KyY"/>
+                <outlet property="doneButton" destination="MhK-Qa-31I" id="EEL-ho-8An"/>
                 <outlet property="subTitleLabel" destination="Qea-IJ-GyK" id="kUm-6n-Zzt"/>
                 <outlet property="titleLabel" destination="Ohj-b5-t76" id="BjF-aE-96b"/>
             </connections>
@@ -70,6 +74,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="checked" width="20" height="18"/>
+        <image name="unchecked" width="20" height="19"/>
     </resources>
 </document>

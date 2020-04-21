@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskDetailsViewController: UIViewController {
+class TaskDetailsViewController: UIViewController, TaskDataEnteredDelegate {
   
   @IBOutlet weak var createdLabel: UILabel!
   @IBOutlet weak var doneLabel: UILabel!
@@ -22,7 +22,9 @@ class TaskDetailsViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
     setupNavigationBar()
     setupLabels()
   }
@@ -30,6 +32,7 @@ class TaskDetailsViewController: UIViewController {
   
   @IBAction func editButtonTouchDown(_ sender: Any) {
     let editTaskViewController = EditTaskViewController()
+    editTaskViewController.delegate = self
     editTaskViewController.task = self.task
     self.navigationController?.pushViewController(editTaskViewController, animated: true)
   }
@@ -90,4 +93,9 @@ class TaskDetailsViewController: UIViewController {
     priorityButton.setTitle(task?.priority.name, for: .normal)
   }
   
+  func userDidEnterInformation(data: Task) {
+    self.task? = data
+  }
+  
 }
+

@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
   @IBOutlet weak var placeholderImageView: UIImageView!
   @IBOutlet weak var imageLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
+  let backendService = BackendService()
   
   enum Constants {
     static let idCell = "caseCell"
@@ -31,13 +32,15 @@ class MainViewController: UIViewController {
       self.showExitAlert(message: "Отсутствует интернет соединение")
       return
     }
-    taskModel.delegate = self
-    taskModel.requestData(id: userId!)
-    
+    taskModel.delegate = self    
     self.setupNavigationBar()
     self.setupTableView()
     self.loadImage()
-    
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    taskModel.requestData(id: userId!)
+    tableView.reloadData()
   }
   
   private func loadImage() {
@@ -94,6 +97,7 @@ class MainViewController: UIViewController {
   @objc func refreshTable() {
     
     //reload data here
+    taskModel.requestData(id: userId!)
     tableView.reloadData()
     tableView.refreshControl?.endRefreshing()
   }
@@ -120,9 +124,18 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: Constants.idCell) as! CaseTableViewCell
+    cell.delegate = self
     cell.colorView.backgroundColor = hexStringToUIColor(hex: categories[indexPath.section].tasks?[indexPath.row].priority.color ?? "#FFFFFF")
     cell.titleLabel.text = categories[indexPath.section].tasks?[indexPath.row].title
     cell.subTitleLabel.text = categories[indexPath.section].tasks?[indexPath.row].description
+    switch categories[indexPath.section].tasks?[indexPath.row].done {
+    case 1:
+      cell.doneButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+    case 0:
+      cell.doneButton.setImage(#imageLiteral(resourceName: "unchecked"), for: .normal)
+    default:
+      print("Invalid done field")
+    }
     return cell
   }
   
@@ -146,8 +159,19 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   
   public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      categories[indexPath.section].tasks!.remove(at: indexPath.row)
-      tableView.deleteRows(at: [indexPath], with: .automatic)
+      let currentTaskId = categories[indexPath.section].tasks?[indexPath.row].id
+      backendService.deleteTask(taskId: currentTaskId!) { result in
+        switch result {
+        case .failure(let error):
+          self.showAlert(message: error.localizedDescription)
+          
+        case .success(_):
+          self.taskModel.requestData(id: self.userId!)
+          //self.categories[indexPath.section].tasks!.remove(at: indexPath.row)
+          //self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+      }
+      
     }
   }
   
@@ -192,6 +216,26 @@ extension MainViewController {
       blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
       alpha: CGFloat(1.0)
     )
+  }
+  
+}
+
+//MARK: - button pressed delegate
+extension MainViewController: ButtonTappedDelegate {
+  func buttonTapped(cell: CaseTableViewCell) {
+    let indexPath = tableView.indexPath(for: cell)
+    self.categories[indexPath!.section].tasks?[indexPath!.row].done = 1
+    let task = categories[indexPath!.section].tasks?[indexPath!.row]
+    
+    self.backendService.patchTask(taskId: task!.id, title: task!.title, description: task!.description, done: task!.done, deadline: task!.deadline, categoryId: task!.category.id, priorityId: task!.priority.id) { result in
+      switch result {
+      case .failure(let error):
+        self.showAlert(message: error.localizedDescription)
+        
+      case .success(_):
+        cell.doneButton.setImage(#imageLiteral(resourceName: "checked"), for: .normal)
+      }
+    }
   }
   
 }

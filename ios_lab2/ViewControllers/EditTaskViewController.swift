@@ -20,7 +20,10 @@ class EditTaskViewController: UIViewController {
   @IBOutlet weak var saveButton: RoundedButton!
   @IBOutlet weak var pickerView: UIPickerView!
   @IBOutlet weak var modalHelpView: UIView!
-  @IBOutlet weak var datePickerView: UIDatePicker!
+  
+  enum Constants {
+    static let limitOfCharactersInDescription = 120
+  }
     
   private let userId = UserDefaults.standard.string(forKey: "token")
   private let backendService = BackendService()
@@ -29,6 +32,8 @@ class EditTaskViewController: UIViewController {
   private var isCategoryButtonSelected = false
   private var isPriorityButtonSelected = false
   var task: Task?
+  
+  weak var delegate: TaskDataEnteredDelegate? = nil
   
   let datePicker = UIDatePicker()
   
@@ -39,6 +44,33 @@ class EditTaskViewController: UIViewController {
     self.pickerView.dataSource = self
     setupNavigationBar()
     setupLabels()
+  }
+  
+  @IBAction func saveButtonTouchDown(_ sender: Any) {
+    guard let title = titleTextField.text else {
+      showAlert(message: "Введите название")
+      return
+    }
+    guard let description = descriptionTextView.text else {
+      showAlert(message: "Введите описание")
+      return
+    }
+    task?.title = title
+    task?.description = description
+    
+    backendService.patchTask(taskId: task!.id, title: task!.title, description: task!.description, done: task!.done, deadline: task!.deadline, categoryId: task!.category.id, priorityId: task!.priority.id) { result in
+      switch result {
+      case .failure(let error):
+        self.showAlert(message: error.localizedDescription)
+        
+      case .success(_):
+        self.showToast(message: "Дело успешно сохранено")
+        self.delegate?.userDidEnterInformation(data: self.task!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+          self.navigationController?.popViewController(animated: true)
+        })
+      }
+    }
   }
   
   private func setupNavigationBar () {
@@ -63,22 +95,26 @@ class EditTaskViewController: UIViewController {
   }
   
   private func setupDescriptionTextView() {
-    descriptionTextView.text = task?.description
+    descriptionTextView.delegate = self
+    descriptionTextView.text = task?.description ?? ""    
+    charactersNumberLabel.text = "\(descriptionTextView.text.count)/\(Constants.limitOfCharactersInDescription)"
   }
   
-  private func setupCategoryButton(){
+  private func setupCategoryButton() {
     categoryButton.setTitle(task?.category.name, for: .normal)
-    
-    backendService.getCategories(id: userId!) { result in
-      switch result {
-      case .failure(let error):
-        self.showAlert(message: error.localizedDescription)
-        
-      case .success(let response):
-        self.availableCategories = response
-      }
-    }
-
+    refreshCategories()
+  }
+  
+  private func refreshCategories() {
+    self.backendService.getCategories(id: self.userId!) { result in
+       switch result {
+       case .failure(let error):
+         self.showAlert(message: error.localizedDescription)
+         
+       case .success(let response):
+         self.availableCategories = response
+       }
+     }
   }
   
   @IBAction func categoryButtonTouchDown(_ sender: Any) {
@@ -114,6 +150,7 @@ class EditTaskViewController: UIViewController {
       case .success(let response):
         self.showAlert(message: "Категория добавлена")
         self.task?.category = response
+        self.refreshCategories()
       }
     }
     
@@ -140,16 +177,22 @@ class EditTaskViewController: UIViewController {
   
   private func setupDeadLineTextField() {
     
-    deadLineTextField.addTarget(self, action: #selector(deadLineTextFieldTouchDown), for: .touchDown)
+    let dateFormatter = DateFormatter()
+    dateFormatter.timeStyle = .none
+    dateFormatter.dateStyle = .short
+    let deadLineDateDouble = Double(self.task!.deadline)
+    let deadLineDate = Date(timeIntervalSince1970: deadLineDateDouble)
+    deadLineTextField.text = "До \(dateFormatter.string(from: deadLineDate))"
     
+    deadLineTextField.addTarget(self, action: #selector(deadLineTextFieldTouchDown), for: .touchDown)
     deadLineTextField.inputView = datePicker
     datePicker.datePickerMode = .date
+    datePicker.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     
     let toolbar = UIToolbar()
     toolbar.barStyle = .default
     toolbar.sizeToFit()
     let acceptButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(acceptDate))
-    //let acceptButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptDate))
     toolbar.setItems([acceptButton], animated: true)
     deadLineTextField.inputAccessoryView = toolbar
   }
@@ -164,6 +207,7 @@ class EditTaskViewController: UIViewController {
     dateFormatter.dateStyle = .short
     let selectedDate = datePicker.date
     deadLineTextField.text = "До \(dateFormatter.string(from: selectedDate))"
+    self.task?.deadline = Int(selectedDate.timeIntervalSince1970)
     
     fade(view: modalHelpView, hidden: true)
     view.endEditing(true)
@@ -235,3 +279,49 @@ extension EditTaskViewController {
     })
   }
 }
+
+// MARK: - TextView delegate
+extension EditTaskViewController: UITextViewDelegate {
+  
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    guard let rangeOfTextToReplace = Range(range, in: textView.text) else {
+      return false
+    }
+    let subStringToReplace = textView.text[rangeOfTextToReplace]
+    let count = textView.text.count - subStringToReplace.count + text.count
+    return count <= Constants.limitOfCharactersInDescription
+  }
+  
+  func textViewDidChange(_ textView: UITextView) {
+    let description = descriptionTextView.text ?? ""
+    charactersNumberLabel.text = "\(description.count)/\(Constants.limitOfCharactersInDescription)"
+  }
+  
+  func textViewDidEndEditing(_ textView: UITextView) {
+    self.task?.description = description
+  }
+  
+}
+
+extension EditTaskViewController {
+  
+  func showToast(message : String) {
+    
+    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 150, y: self.view.frame.size.height-100, width: 300, height: 35))
+    toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+    toastLabel.textColor = UIColor.white
+    toastLabel.font = UIFont.systemFont(ofSize: 17.0)
+    toastLabel.textAlignment = .center;
+    toastLabel.text = message
+    toastLabel.alpha = 1.0
+    toastLabel.layer.cornerRadius = 10;
+    toastLabel.clipsToBounds  =  true
+    self.view.addSubview(toastLabel)
+    UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+      toastLabel.alpha = 0.0
+    }, completion: {(isCompleted) in
+      toastLabel.removeFromSuperview()
+    })
+  }
+}
+
