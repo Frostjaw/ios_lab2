@@ -10,6 +10,12 @@ import UIKit
 
 class EditTaskViewController: UIViewController {
   
+  enum LocalConstants {
+    static let navigationBarTitleFont = UIFont.boldSystemFont(ofSize: 20.0)
+    static let navigationBarTitle = "Изменить заметку"
+  }
+  
+  @IBOutlet weak var viewWithShadow: ViewWithShadow!
   @IBOutlet weak var titleTextField: TextFieldWithBottomBorder!
   @IBOutlet weak var descriptionTextView: UITextView!
   @IBOutlet weak var categoryButton: RoundedButton!
@@ -20,12 +26,8 @@ class EditTaskViewController: UIViewController {
   @IBOutlet weak var saveButton: RoundedButton!
   @IBOutlet weak var pickerView: UIPickerView!
   @IBOutlet weak var modalHelpView: UIView!
-  
-  enum Constants {
-    static let limitOfCharactersInDescription = 120
-  }
     
-  private let userId = UserDefaults.standard.string(forKey: "token")
+  private let userId = UserDefaults.standard.string(forKey: GlobalConstants.tokenKey)
   private let backendService = BackendService()
   private var availableCategories = [Category]()
   private var availablePriorities = [Priority]()
@@ -43,16 +45,31 @@ class EditTaskViewController: UIViewController {
     self.pickerView.delegate = self
     self.pickerView.dataSource = self
     setupNavigationBar()
-    setupLabels()
+    setLabels()
+  }
+  
+  // MARK: - fixing shadow with portrait orientation
+  override func viewWillAppear(_ animated: Bool) {
+    DispatchQueue.main.async {
+      self.viewWithShadow.addShadow(top: false, left: true, bottom: true, right: true)
+    }
+  }
+  
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    DispatchQueue.main.async {
+          if UIDevice.current.orientation.isLandscape || UIDevice.current.orientation.isPortrait {
+            self.viewWithShadow.addShadow(top: false, left: true, bottom: true, right: true)
+      }
+    }
   }
   
   @IBAction func saveButtonTouchDown(_ sender: Any) {
     guard let title = titleTextField.text else {
-      showAlert(message: "Введите название")
+      showAlert(message: GlobalConstants.emptyTaskTitleMessage)
       return
     }
     guard let description = descriptionTextView.text else {
-      showAlert(message: "Введите описание")
+      showAlert(message: GlobalConstants.emptyTaskDescriptionMessage)
       return
     }
     task?.title = title
@@ -64,7 +81,7 @@ class EditTaskViewController: UIViewController {
         self.showAlert(message: error.localizedDescription)
         
       case .success(_):
-        self.showToast(message: "Дело успешно сохранено")
+        self.showToast(message: GlobalConstants.taskSuccessfullySavedMessage)
         self.delegate?.userDidEnterInformation(data: self.task!)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
           self.navigationController?.popViewController(animated: true)
@@ -75,32 +92,42 @@ class EditTaskViewController: UIViewController {
   
   private func setupNavigationBar () {
     let titleLabel = UILabel()
-    titleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-    titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-    titleLabel.text = "Изменить заметку";
+    titleLabel.textColor = GlobalConstants.navigationBarTintColor
+    titleLabel.font = LocalConstants.navigationBarTitleFont
+    titleLabel.text = LocalConstants.navigationBarTitle
     self.navigationItem.titleView = titleLabel
+    
+    self.navigationItem.hidesBackButton = true
+    let backButton = UIBarButtonItem(title: "< \(GlobalConstants.applicationTitle)", style: .plain, target: self, action: #selector(back(sender:)))
+    backButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)], for: .normal)
+    self.navigationItem.leftBarButtonItem = backButton
   }
   
-  private func setupLabels() {
-    setupTitleTextField()
-    setupDescriptionTextView()
-    setupCategoryButton()
+  @objc func back(sender: UIBarButtonItem) {
+    
+    self.showSaveAlert(message: GlobalConstants.saveTaskMessage)
+  }
+  
+  private func setLabels() {
+    setTitleTextField()
+    setDescriptionTextView()
+    setCategoryTitle()
     setupAddCategoryButton()
     setupPriorityButton()
     setupDeadLineTextField()
   }
   
-  private func setupTitleTextField() {
+  private func setTitleTextField() {
     titleTextField.text = task?.title
   }
   
-  private func setupDescriptionTextView() {
+  private func setDescriptionTextView() {
     descriptionTextView.delegate = self
     descriptionTextView.text = task?.description ?? ""    
-    charactersNumberLabel.text = "\(descriptionTextView.text.count)/\(Constants.limitOfCharactersInDescription)"
+    charactersNumberLabel.text = "\(descriptionTextView.text.count)/\(GlobalConstants.limitOfCharactersInDescription)"
   }
   
-  private func setupCategoryButton() {
+  private func setCategoryTitle() {
     categoryButton.setTitle(task?.category.name, for: .normal)
     refreshCategories()
   }
@@ -130,14 +157,16 @@ class EditTaskViewController: UIViewController {
   
   @objc func addCategory(tapGestureRecognizer: UITapGestureRecognizer) {
     
-    let alert = UIAlertController(title: "Добавить категорию", message: "Введите название новой категории", preferredStyle: .alert)
+    let alert = UIAlertController(title: GlobalConstants.addCategoryAlertTitle, message: GlobalConstants.addCategoryAlertMessage, preferredStyle: .alert)
     alert.addTextField { (textField) in
-      textField.placeholder = "Категория"
+      textField.placeholder = GlobalConstants
+      .addCategoryAlertPlaceholder
     }
-    alert.addAction(UIAlertAction(title: "Отмена", style: .default, handler: nil))
-    alert.addAction(UIAlertAction(title: "Сохранить",
+    alert.addAction(UIAlertAction(title: GlobalConstants.cancelMessage, style: .default, handler: nil))
+    alert.addAction(UIAlertAction(title: GlobalConstants.saveMessage,
                                   style: .default,
-                                  handler: {[weak alert] (_) in self.addCategory(name: (alert?.textFields![0].text)!) }))
+                                  handler: {[weak alert] (_) in
+                                    self.addCategory(name: (alert?.textFields![0].text)!) }))
     self.present(alert, animated: true)
   }
   
@@ -148,7 +177,7 @@ class EditTaskViewController: UIViewController {
         self.showAlert(message: error.localizedDescription)
         
       case .success(let response):
-        self.showAlert(message: "Категория добавлена")
+        self.showAlert(message: GlobalConstants.categorySuccessfullyAddedMessage)
         self.task?.category = response
         self.refreshCategories()
       }
@@ -187,12 +216,12 @@ class EditTaskViewController: UIViewController {
     deadLineTextField.addTarget(self, action: #selector(deadLineTextFieldTouchDown), for: .touchDown)
     deadLineTextField.inputView = datePicker
     datePicker.datePickerMode = .date
-    datePicker.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    datePicker.backgroundColor = GlobalConstants.pickerBackgroundColor
     
     let toolbar = UIToolbar()
     toolbar.barStyle = .default
     toolbar.sizeToFit()
-    let acceptButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(acceptDate))
+    let acceptButton = UIBarButtonItem(title: GlobalConstants.doneMessage, style: .done, target: self, action: #selector(acceptDate))
     toolbar.setItems([acceptButton], animated: true)
     deadLineTextField.inputAccessoryView = toolbar
   }
@@ -245,7 +274,7 @@ extension EditTaskViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     
-    var titleForRow = "default title"
+    var titleForRow = ""
     if isCategoryButtonSelected {
       titleForRow = availableCategories[row].name
     }
@@ -289,12 +318,12 @@ extension EditTaskViewController: UITextViewDelegate {
     }
     let subStringToReplace = textView.text[rangeOfTextToReplace]
     let count = textView.text.count - subStringToReplace.count + text.count
-    return count <= Constants.limitOfCharactersInDescription
+    return count <= GlobalConstants.limitOfCharactersInDescription
   }
   
   func textViewDidChange(_ textView: UITextView) {
     let description = descriptionTextView.text ?? ""
-    charactersNumberLabel.text = "\(description.count)/\(Constants.limitOfCharactersInDescription)"
+    charactersNumberLabel.text = "\(description.count)/\(GlobalConstants.limitOfCharactersInDescription)"
   }
   
   func textViewDidEndEditing(_ textView: UITextView) {
@@ -303,25 +332,58 @@ extension EditTaskViewController: UITextViewDelegate {
   
 }
 
+// MARK: - save alert
 extension EditTaskViewController {
-  
-  func showToast(message : String) {
+  private func showSaveAlert(message: String) {
     
-    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 150, y: self.view.frame.size.height-100, width: 300, height: 35))
-    toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-    toastLabel.textColor = UIColor.white
-    toastLabel.font = UIFont.systemFont(ofSize: 17.0)
-    toastLabel.textAlignment = .center;
-    toastLabel.text = message
-    toastLabel.alpha = 1.0
-    toastLabel.layer.cornerRadius = 10;
-    toastLabel.clipsToBounds  =  true
-    self.view.addSubview(toastLabel)
-    UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-      toastLabel.alpha = 0.0
-    }, completion: {(isCompleted) in
-      toastLabel.removeFromSuperview()
-    })
+    let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: GlobalConstants.yesMessage,
+                                  style: .default,
+                                  handler:
+      {(alert: UIAlertAction) in
+        
+        guard let title = self.titleTextField.text, !title.isEmpty else {
+          self.showAlert(message: GlobalConstants.emptyTaskTitleMessage)
+          return
+        }
+        guard let description = self.descriptionTextView.text, !description.isEmpty else {
+          self.showAlert(message: GlobalConstants.emptyTaskDescriptionMessage)
+          return
+        }
+        guard self.task?.category.id != -1 else {
+          self.showAlert(message: GlobalConstants.emptyCategortMessage)
+          return
+        }
+        guard self.task?.priority.id != -1 else {
+          self.showAlert(message: GlobalConstants.emptyPriorityMessage)
+          return
+        }
+        guard self.task?.deadline != -1 else {
+          self.showAlert(message: GlobalConstants.emptyDeadLineMessage)
+          return
+        }
+        self.task?.title = title
+        self.task?.description = description
+        
+        self.backendService.patchTask(taskId: self.task!.id, title: self.task!.title, description: self.task!.description, done: self.task!.done, deadline: self.task!.deadline, categoryId: self.task!.category.id, priorityId: self.task!.priority.id) { result in
+          switch result {
+          case .failure(let error):
+            self.showAlert(message: error.localizedDescription)
+            
+          case .success(_):
+            self.showToast(message: GlobalConstants.taskSuccessfullySavedMessage)
+            self.navigationController?.popViewController(animated: true)
+          }
+        }
+    }))
+    
+    alert.addAction(UIAlertAction(title: GlobalConstants.noMessage, style: .default, handler:
+      {(alert: UIAlertAction) in
+        self.navigationController?.popViewController(animated: true)
+    }
+    ))
+    
+    self.present(alert, animated: true)
   }
 }
 

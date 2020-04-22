@@ -11,25 +11,32 @@ import Kingfisher
 
 class MainViewController: UIViewController {
   
+  private enum LocalConstants {
+    static let idCell = "caseCell"
+    static let heightForCell: CGFloat = 62.0
+    static let caseTableViewCellFileName = "CaseTableViewCell"
+    static let imageURL = "https://loremflickr.com/640/480/holiday"
+    static let navigationBarTitle = GlobalConstants.applicationTitle
+    static let noInternetConnectionMessage = "Отсутствует интернет соединение"
+    static let navigationBarFont = UIFont.boldSystemFont(ofSize: 28.0)
+    static let exitButtonTitle = "Выход"
+  }
+  
   @IBOutlet weak var placeholderImageView: UIImageView!
   @IBOutlet weak var imageLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
-  let backendService = BackendService()
   
-  enum Constants {
-    static let idCell = "caseCell"
-    static let caseTableViewCellFileName = "CaseTableViewCell"
-  }
-  
-  private let userId = UserDefaults.standard.string(forKey: "token")
+  private let backendService = BackendService()
+  private let userId = UserDefaults.standard.string(forKey: GlobalConstants.tokenKey)
   private let taskModel = TaskModel()
   private var categories = [Category]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    // MARK: - check for internet connection
     guard taskModel.backendService.isConnectedToInternet() else {
-      self.showExitAlert(message: "Отсутствует интернет соединение")
+      self.showExitAlert(message: LocalConstants.noInternetConnectionMessage)
       return
     }
     taskModel.delegate = self    
@@ -39,12 +46,14 @@ class MainViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
     taskModel.requestData(id: userId!)
     tableView.reloadData()
   }
   
   private func loadImage() {
-    let url = URL(string: "https://loremflickr.com/640/480/holiday")
+    let url = URL(string: LocalConstants.imageURL)
     let processor = RoundCornerImageProcessor(cornerRadius: 10)
     placeholderImageView.kf.indicatorType = .activity
     placeholderImageView.kf.setImage(
@@ -59,21 +68,19 @@ class MainViewController: UIViewController {
   
   private func setupNavigationBar () {
     let navigationBar = navigationController?.navigationBar    
-    navigationBar?.barTintColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
-    navigationBar?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    navigationBar?.barTintColor = GlobalConstants.navigationBarColor
+    navigationBar?.tintColor = GlobalConstants.navigationBarTintColor
     
     let titleLabel = UILabel()
-    titleLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-    titleLabel.font = UIFont.boldSystemFont(ofSize: 28.0)
-    titleLabel.text = "Not Forgot!";
+    titleLabel.textColor = GlobalConstants.navigationBarTintColor
+    titleLabel.font = LocalConstants.navigationBarFont
+    titleLabel.text = LocalConstants.navigationBarTitle;
     self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: titleLabel)
-    
-    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Not Forgot!", style: .plain, target: self, action: nil)
+      
     let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-    let logOutButton = UIBarButtonItem(title: "Выход", style: .plain, target: self, action: #selector(logOut))
+    let logOutButton = UIBarButtonItem(title: LocalConstants.exitButtonTitle, style: .plain, target: self, action: #selector(logOut))
     self.navigationItem.rightBarButtonItems = [logOutButton, addButton]
   }
-  
   
   @objc func addTapped() {
     self.navigationController?.pushViewController(CreateTaskViewController(), animated: true)
@@ -87,7 +94,7 @@ class MainViewController: UIViewController {
   private func setupTableView() {
     tableView.dataSource = self
     tableView.delegate = self
-    tableView.register(UINib(nibName: Constants.caseTableViewCellFileName, bundle: nil), forCellReuseIdentifier: Constants.idCell)
+    tableView.register(UINib(nibName: LocalConstants.caseTableViewCellFileName, bundle: nil), forCellReuseIdentifier: LocalConstants.idCell)
     
     let refreshControl = UIRefreshControl()
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
@@ -95,11 +102,15 @@ class MainViewController: UIViewController {
   }
   
   @objc func refreshTable() {
-    
-    //reload data here
     taskModel.requestData(id: userId!)
     tableView.reloadData()
     tableView.refreshControl?.endRefreshing()
+  }
+  
+  private func showPlaceHolderImage() {
+    self.tableView.isHidden = true
+    self.placeholderImageView.isHidden = false
+    self.imageLabel.isHidden = false
   }
   
 }
@@ -123,7 +134,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   // MARK: - create cell
   public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    let cell = tableView.dequeueReusableCell(withIdentifier: Constants.idCell) as! CaseTableViewCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: LocalConstants.idCell) as! CaseTableViewCell
     cell.delegate = self
     cell.colorView.backgroundColor = hexStringToUIColor(hex: categories[indexPath.section].tasks?[indexPath.row].priority.color ?? "#FFFFFF")
     cell.titleLabel.text = categories[indexPath.section].tasks?[indexPath.row].title
@@ -141,7 +152,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
   
   // MARK: - cells height
   public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 62.0
+    return LocalConstants.heightForCell
   }
   
   // MARK: - select cell
@@ -167,8 +178,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
           
         case .success(_):
           self.taskModel.requestData(id: self.userId!)
-          //self.categories[indexPath.section].tasks!.remove(at: indexPath.row)
-          //self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
       }
       
@@ -189,7 +198,8 @@ extension MainViewController: TaskModelDelegate {
       tableView.reloadData()
       return
     }
-
+    
+    self.showPlaceHolderImage()
   }
   
 }
@@ -220,7 +230,7 @@ extension MainViewController {
   
 }
 
-//MARK: - button pressed delegate
+//MARK: - button tapped delegate
 extension MainViewController: ButtonTappedDelegate {
   func buttonTapped(cell: CaseTableViewCell) {
     let indexPath = tableView.indexPath(for: cell)

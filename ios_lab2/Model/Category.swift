@@ -15,15 +15,6 @@ struct Category {
 }
 
 extension Category: Decodable {
-  enum CodingKeys: String, CodingKey {
-    case id
-    case name
-  }
-  
-  init(from: Decoder) throws {
-    let values = try from.container(keyedBy: CodingKeys.self)
-    self.id = try values.decode(Int.self, forKey: .id)
-    self.name = try values.decode(String.self, forKey: .name)
-  }
+
 }
 

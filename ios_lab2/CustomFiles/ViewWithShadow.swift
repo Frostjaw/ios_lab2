@@ -25,10 +25,11 @@ class ViewWithShadow: UIView {
   }
   
   private func setupView() {
-    addshadow(top: false, left: true, bottom: true, right: true, shadowRadius: 2.0)
+    addShadow(top: false, left: true, bottom: true, right: true, shadowRadius: 2.0)
   }
   
-  private func addshadow(top: Bool, left: Bool, bottom: Bool, right: Bool, shadowRadius: CGFloat = 2.0) {
+  func addShadow(top: Bool, left: Bool, bottom: Bool, right: Bool, shadowRadius: CGFloat = 2.0) {
+    self.layer.shadowPath = nil
     
     self.layer.masksToBounds = false
     self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
@@ -60,5 +61,7 @@ class ViewWithShadow: UIView {
     path.close()
     self.layer.shadowPath = path.cgPath
   }
+  
+  
   
 }

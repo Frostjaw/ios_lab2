@@ -66,6 +66,39 @@ extension UIViewController {
   }
 }
 
+// MARK: - toast
+extension UIViewController {
+  
+  enum ToastSettings {
+    static let backgroundColor = UIColor.black.withAlphaComponent(0.6)
+    static let textColor = UIColor.white
+    static let font = UIFont.systemFont(ofSize: 17.0)
+    static let messageAlpha: CGFloat = 1.0
+    static let cornerRadius: CGFloat = 10
+    static let duration = 4.0
+    static let delay = 0.1
+  }
+  
+  func showToast(message : String) {
+    
+    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 150, y: self.view.frame.size.height - 100, width: 300, height: 35))
+    toastLabel.backgroundColor = ToastSettings.backgroundColor
+    toastLabel.textColor = ToastSettings.textColor
+    toastLabel.font = ToastSettings.font
+    toastLabel.textAlignment = .center
+    toastLabel.text = message
+    toastLabel.alpha = ToastSettings.messageAlpha
+    toastLabel.layer.cornerRadius = ToastSettings.cornerRadius
+    toastLabel.clipsToBounds = true
+    self.view.addSubview(toastLabel)
+    UIView.animate(withDuration: ToastSettings.duration, delay: ToastSettings.delay, options: .curveEaseOut, animations: {
+      toastLabel.alpha = 0.0
+    }, completion: {(isCompleted) in
+      toastLabel.removeFromSuperview()
+    })
+  }
+}
+
 // MARK: - pass data protocol
 protocol TaskDataEnteredDelegate: class {
   func userDidEnterInformation(data: Task)

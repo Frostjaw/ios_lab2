@@ -24,27 +24,27 @@ class RegisterViewController: UIViewController {
   
   @IBAction func registerButtonTouchDown(_ sender: Any) {
     guard let name = nameTextField.text, !name.isEmpty else {
-      showAlert(message: "Введите имя")
+      showAlert(message: GlobalConstants.emptyNameMessage)
       return
     }
     guard let mail = mailTextField.text, !mail.isEmpty else{
-      showAlert(message: "Введите почту")
+      showAlert(message: GlobalConstants.emptyEmailMessage)
       return
     }
     guard isValidEmail(email: mail) else {
-      showAlert(message: "Не верный формат почты")
+      showAlert(message: GlobalConstants.invalidEmailMessage)
       return
     }
     guard let password = passwordTextField.text, !password.isEmpty else {
-      showAlert(message: "Введите пароль")
+      showAlert(message: GlobalConstants.emptyPasswordMessage)
       return
     }
     guard let repeatPassword = repeatPasswordTextField.text, !repeatPassword.isEmpty else {
-      showAlert(message: "Введите пароль повторно")
+      showAlert(message: GlobalConstants.emptyRePasswordMessage)
       return
     }
     guard password == repeatPassword else {
-      showAlert(message: "Пароли не совпадают")
+      showAlert(message: GlobalConstants.passwordsNotMatchMessage)
       return
     }
     

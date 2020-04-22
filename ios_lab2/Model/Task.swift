@@ -30,9 +30,9 @@ extension Task: Decodable {
     case category
     case priority
     case created
-    
+
   }
-  
+
   init(from: Decoder) throws {
     let values = try from.container(keyedBy: CodingKeys.self)
     self.id = try values.decode(Int.self, forKey: .id)
@@ -43,6 +43,6 @@ extension Task: Decodable {
     self.created = try values.decode(Int.self, forKey: .created)
     self.category = try values.decode(Category.self, forKey: .category)
     self.priority = try values.decode(Priority.self, forKey: .priority)
-    
+
   }
 }

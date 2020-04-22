@@ -25,6 +25,7 @@
 		8573649D244869C100B3D9D2 /* CaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8573649B244869C100B3D9D2 /* CaseTableViewCell.swift */; };
 		8573649E244869C100B3D9D2 /* CaseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8573649C244869C100B3D9D2 /* CaseTableViewCell.xib */; };
 		859220A6243F34A400867F7B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 859220A5243F34A400867F7B /* LaunchScreen.xib */; };
+		859A33B22450705B006D78A4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859A33B12450705B006D78A4 /* Constants.swift */; };
 		85A00EC8244D7D73001C7C55 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A00EC6244D7D73001C7C55 /* EditTaskViewController.swift */; };
 		85A00EC9244D7D73001C7C55 /* EditTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85A00EC7244D7D73001C7C55 /* EditTaskViewController.xib */; };
 		85A00ECD244D8718001C7C55 /* ViewWithBottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A00ECC244D8718001C7C55 /* ViewWithBottomBorder.swift */; };
@@ -60,6 +61,7 @@
 		8573649B244869C100B3D9D2 /* CaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseTableViewCell.swift; sourceTree = "<group>"; };
 		8573649C244869C100B3D9D2 /* CaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CaseTableViewCell.xib; sourceTree = "<group>"; };
 		859220A5243F34A400867F7B /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		859A33B12450705B006D78A4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		85A00EC6244D7D73001C7C55 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		85A00EC7244D7D73001C7C55 /* EditTaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTaskViewController.xib; sourceTree = "<group>"; };
 		85A00ECC244D8718001C7C55 /* ViewWithBottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithBottomBorder.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		85E676FF2449A50100AAB3C4 /* CustomFiles */ = {
 			isa = PBXGroup;
 			children = (
+				859A33B12450705B006D78A4 /* Constants.swift */,
 				8564278124446E92005973CC /* RoundedButton.swift */,
 				85642783244471CB005973CC /* RoundedView.swift */,
 				85642785244474FD005973CC /* TextFieldWithBottomBorder.swift */,
@@ -340,6 +343,7 @@
 				85642784244471CB005973CC /* RoundedView.swift in Sources */,
 				85642786244474FD005973CC /* TextFieldWithBottomBorder.swift in Sources */,
 				85A00ECD244D8718001C7C55 /* ViewWithBottomBorder.swift in Sources */,
+				859A33B22450705B006D78A4 /* Constants.swift in Sources */,
 				85E676F824499E4900AAB3C4 /* Priority.swift in Sources */,
 				85E676F424499D4F00AAB3C4 /* Task.swift in Sources */,
 				856B04832445AACD00902698 /* MainViewController.swift in Sources */,
@@ -473,7 +477,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4884752176603A278443D30 /* Pods-ios_lab2.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ios_lab2/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -491,7 +495,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4BD14C4A30B3084DEAFFA /* Pods-ios_lab2.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ios_lab2/SupportFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
