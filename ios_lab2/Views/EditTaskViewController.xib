@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -28,7 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Axw-0M-zQk">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Axw-0M-zQk">
                     <rect key="frame" x="0.0" y="44" width="414" height="782"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Nn-Iq-bAa" customClass="ViewWithShadow" customModule="ios_lab2" customModuleProvider="target">
@@ -46,13 +46,13 @@
                                     <rect key="frame" x="8" y="82" width="382" height="150"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YF0-lB-EHn">
-                                            <rect key="frame" x="12" y="8" width="59" height="14.5"/>
+                                            <rect key="frame" x="12" y="7.9999999999999991" width="59" height="14.666666666666664"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tAC-f0-mPx">
-                                            <rect key="frame" x="8" y="30.5" width="366" height="111.5"/>
+                                            <rect key="frame" x="8" y="30.66666666666665" width="366" height="111.33333333333331"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -154,18 +154,19 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="3DX-b2-W0C" firstAttribute="top" secondItem="2Nn-Iq-bAa" secondAttribute="top" id="3dg-mm-iGF"/>
+                        <constraint firstItem="2Nn-Iq-bAa" firstAttribute="trailing" secondItem="3DX-b2-W0C" secondAttribute="trailing" constant="8" id="727-Fk-KsH"/>
                         <constraint firstItem="2Nn-Iq-bAa" firstAttribute="bottom" secondItem="3DX-b2-W0C" secondAttribute="bottom" id="7pm-Bb-pwP"/>
                         <constraint firstItem="2Nn-Iq-bAa" firstAttribute="leading" secondItem="zeQ-jf-0Jz" secondAttribute="leading" constant="8" id="dDM-0Q-dJQ"/>
+                        <constraint firstItem="2Nn-Iq-bAa" firstAttribute="leading" secondItem="3DX-b2-W0C" secondAttribute="leading" constant="8" id="kna-lW-1Ej"/>
                         <constraint firstItem="zeQ-jf-0Jz" firstAttribute="trailing" secondItem="2Nn-Iq-bAa" secondAttribute="trailing" constant="8" id="wsd-XT-CT9"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="3DX-b2-W0C"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="zeQ-jf-0Jz"/>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYx-uX-wfQ" customClass="RoundedButton" customModule="ios_lab2" customModuleProvider="target">
-                    <rect key="frame" x="27" y="834" width="360" height="44"/>
+                    <rect key="frame" x="8" y="834" width="398" height="44"/>
                     <color key="backgroundColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="360" id="c4N-0B-16Z"/>
                         <constraint firstAttribute="height" constant="44" id="zBx-6m-T7X"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -198,12 +199,12 @@
                 <constraint firstItem="Axw-0M-zQk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="IcL-fr-cN7"/>
                 <constraint firstItem="VXo-FR-7dc" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="SXR-p4-DFt"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Axw-0M-zQk" secondAttribute="trailing" id="Sbk-bv-iqJ"/>
-                <constraint firstItem="aYx-uX-wfQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="crG-0i-Kd0"/>
+                <constraint firstItem="aYx-uX-wfQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="crG-0i-Kd0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="d0d-KZ-Jms" secondAttribute="trailing" id="iKC-2q-Zyt"/>
                 <constraint firstItem="VXo-FR-7dc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jK0-uf-iKC"/>
                 <constraint firstItem="d0d-KZ-Jms" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="k8l-Ys-HOr"/>
                 <constraint firstItem="aYx-uX-wfQ" firstAttribute="top" secondItem="Axw-0M-zQk" secondAttribute="bottom" constant="8" id="vCT-Pi-CvQ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aYx-uX-wfQ" secondAttribute="trailing" constant="8" id="xbf-g1-lce"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aYx-uX-wfQ" secondAttribute="trailing" constant="8" id="xbf-g1-lce"/>
                 <constraint firstItem="VXo-FR-7dc" firstAttribute="top" secondItem="d0d-KZ-Jms" secondAttribute="bottom" id="zcC-oN-hRD"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

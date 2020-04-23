@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -28,7 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3qa-M3-CMv">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3qa-M3-CMv">
                     <rect key="frame" x="0.0" y="44" width="414" height="782"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OdS-D7-pyq" customClass="ViewWithShadow" customModule="ios_lab2" customModuleProvider="target">
@@ -46,13 +46,13 @@
                                     <rect key="frame" x="8" y="82" width="382" height="150"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRZ-Mq-qaa">
-                                            <rect key="frame" x="12" y="8" width="59" height="14.5"/>
+                                            <rect key="frame" x="12" y="7.9999999999999991" width="59" height="14.666666666666664"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="N23-XZ-nHO">
-                                            <rect key="frame" x="8" y="30.5" width="366" height="111.5"/>
+                                            <rect key="frame" x="8" y="30.66666666666665" width="366" height="111.33333333333331"/>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -152,19 +152,20 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="Bvp-em-rtb" firstAttribute="trailing" secondItem="OdS-D7-pyq" secondAttribute="trailing" constant="8" id="Vga-pa-Vug"/>
+                        <constraint firstItem="OdS-D7-pyq" firstAttribute="leading" secondItem="Cqh-q6-oF9" secondAttribute="leading" constant="8" id="iCG-XO-yBW"/>
                         <constraint firstItem="Cqh-q6-oF9" firstAttribute="top" secondItem="OdS-D7-pyq" secondAttribute="top" id="kb2-xa-Oh5"/>
                         <constraint firstItem="OdS-D7-pyq" firstAttribute="bottom" secondItem="Cqh-q6-oF9" secondAttribute="bottom" id="oaE-bY-pSw"/>
+                        <constraint firstItem="OdS-D7-pyq" firstAttribute="trailing" secondItem="Cqh-q6-oF9" secondAttribute="trailing" constant="8" id="sNP-CF-7SR"/>
                         <constraint firstItem="OdS-D7-pyq" firstAttribute="leading" secondItem="Bvp-em-rtb" secondAttribute="leading" constant="8" id="sna-yV-Wos"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="Cqh-q6-oF9"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="Bvp-em-rtb"/>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JB-Ff-ZVT" customClass="RoundedButton" customModule="ios_lab2" customModuleProvider="target">
-                    <rect key="frame" x="27" y="834" width="360" height="44"/>
+                    <rect key="frame" x="8" y="834" width="398" height="44"/>
                     <color key="backgroundColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="1UV-fL-b8W"/>
-                        <constraint firstAttribute="width" constant="360" id="enM-M8-lyj"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="Сохранить">
@@ -189,9 +190,9 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Olw-3R-knU" firstAttribute="leading" secondItem="rjD-Ye-pKm" secondAttribute="leading" id="2oK-0x-Vsg"/>
-                <constraint firstItem="rjD-Ye-pKm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9JB-Ff-ZVT" secondAttribute="trailing" constant="8" id="5bp-mD-Q45"/>
+                <constraint firstItem="rjD-Ye-pKm" firstAttribute="trailing" secondItem="9JB-Ff-ZVT" secondAttribute="trailing" constant="8" id="5bp-mD-Q45"/>
                 <constraint firstItem="3qa-M3-CMv" firstAttribute="leading" secondItem="rjD-Ye-pKm" secondAttribute="leading" id="77W-n7-ZCq"/>
-                <constraint firstItem="9JB-Ff-ZVT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rjD-Ye-pKm" secondAttribute="leading" constant="8" id="856-zV-sAS"/>
+                <constraint firstItem="9JB-Ff-ZVT" firstAttribute="leading" secondItem="rjD-Ye-pKm" secondAttribute="leading" constant="8" id="856-zV-sAS"/>
                 <constraint firstItem="Zbp-XO-SLw" firstAttribute="top" secondItem="rjD-Ye-pKm" secondAttribute="top" id="AVd-Ne-1st"/>
                 <constraint firstItem="9JB-Ff-ZVT" firstAttribute="centerX" secondItem="rjD-Ye-pKm" secondAttribute="centerX" id="Beq-t4-EsF"/>
                 <constraint firstAttribute="bottom" secondItem="Olw-3R-knU" secondAttribute="bottom" constant="16" id="BfM-OB-kg0"/>

@@ -162,7 +162,11 @@ class EditTaskViewController: UIViewController {
       textField.placeholder = GlobalConstants
       .addCategoryAlertPlaceholder
     }
-    alert.addAction(UIAlertAction(title: GlobalConstants.cancelMessage, style: .default, handler: nil))
+    alert.addAction(UIAlertAction(title: GlobalConstants.cancelMessage,
+                                  style: .default,
+                                  handler: {(alert: UIAlertAction) in
+                                    self.task = nil
+    }))
     alert.addAction(UIAlertAction(title: GlobalConstants.saveMessage,
                                   style: .default,
                                   handler: {[weak alert] (_) in
@@ -213,7 +217,7 @@ class EditTaskViewController: UIViewController {
     let deadLineDate = Date(timeIntervalSince1970: deadLineDateDouble)
     deadLineTextField.text = "До \(dateFormatter.string(from: deadLineDate))"
     
-    deadLineTextField.addTarget(self, action: #selector(deadLineTextFieldTouchDown), for: .touchDown)
+    deadLineTextField.addTarget(self, action: #selector(deadLineTextFieldTouchDown), for: .editingDidBegin)
     deadLineTextField.inputView = datePicker
     datePicker.datePickerMode = .date
     datePicker.backgroundColor = GlobalConstants.pickerBackgroundColor
@@ -226,7 +230,7 @@ class EditTaskViewController: UIViewController {
     deadLineTextField.inputAccessoryView = toolbar
   }
   
-  @objc func deadLineTextFieldTouchDown() {
+  @objc func deadLineTextFieldTouchDown(textField: UITextField) {
     fade(view: modalHelpView, hidden: false)
   }
   
@@ -238,7 +242,7 @@ class EditTaskViewController: UIViewController {
     deadLineTextField.text = "До \(dateFormatter.string(from: selectedDate))"
     self.task?.deadline = Int(selectedDate.timeIntervalSince1970)
     
-    fade(view: modalHelpView, hidden: true)
+    fade(view: self.modalHelpView, hidden: true)
     view.endEditing(true)
   }
   

@@ -155,10 +155,13 @@ class CreateTaskViewController: UIViewController {
     alert.addTextField { (textField) in
       textField.placeholder = GlobalConstants.addCategoryAlertPlaceholder
     }
-    alert.addAction(UIAlertAction(title: GlobalConstants.cancelMessage, style: .default, handler: nil))
     alert.addAction(UIAlertAction(title: GlobalConstants.saveMessage,
                                   style: .default,
-                                  handler: {[weak alert] (_) in self.addCategory(name: (alert?.textFields![0].text)!) }))
+                                  handler: {[weak alert] (_) in
+                                    self.addCategory(name: (alert?.textFields![0].text)!)
+                                    
+    }))
+    alert.addAction(UIAlertAction(title: GlobalConstants.cancelMessage, style: .default, handler: nil))
     self.present(alert, animated: true)
   }
   
@@ -208,7 +211,7 @@ class CreateTaskViewController: UIViewController {
   
   private func setupDeadLineTextField() {
     
-    deadLineTextField.addTarget(self, action: #selector(deadLineTextFieldTouchDown), for: .touchDown)
+    deadLineTextField.addTarget(self, action: #selector(deadLineTextFieldTouchDown), for: .editingDidBegin)
     deadLineTextField.inputView = datePicker
     datePicker.datePickerMode = .date
     datePicker.backgroundColor = GlobalConstants.pickerBackgroundColor

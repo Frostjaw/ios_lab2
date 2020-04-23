@@ -39,7 +39,7 @@ class TaskDetailsViewController: UIViewController, TaskDataEnteredDelegate {
       self.viewWithShadow.addShadow(top: false, left: true, bottom: true, right: true)
     }
   
-    setNavigationBarTitle()
+    setupNavigationBar()
     setLabels()
   }
   
@@ -58,13 +58,22 @@ class TaskDetailsViewController: UIViewController, TaskDataEnteredDelegate {
     self.navigationController?.pushViewController(editTaskViewController, animated: true)
   }
   
-  private func setNavigationBarTitle () {
+  private func setupNavigationBar () {
     
     let titleLabel = UILabel()
     titleLabel.textColor = LocalConstants.navigationBarTintColor
     titleLabel.font = LocalConstants.navigationBarTitleFont
     titleLabel.text = task?.title;
     self.navigationItem.titleView = titleLabel
+    
+    self.navigationItem.hidesBackButton = true
+    let backButton = UIBarButtonItem(title: "< \(GlobalConstants.applicationTitle)", style: .plain, target: self, action: #selector(back(sender:)))
+    backButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)], for: .normal)
+    self.navigationItem.leftBarButtonItem = backButton
+  }
+  
+  @objc func back(sender: UIBarButtonItem) {
+    self.navigationController?.popViewController(animated: true)
   }
   
   private func setLabels() {
