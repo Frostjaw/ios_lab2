@@ -33,6 +33,7 @@ class CreateTaskViewController: UIViewController {
   private var availablePriorities = [Priority]()
   private var isCategoryButtonSelected = false
   private var isPriorityButtonSelected = false
+  private var isDataChanged = false
   var task = Task(id: -1, title: "", description: "", done: 0, deadline: -1, category: Category(id: -1, name: "", tasks: nil), priority: Priority(id: -1, name: "", color: ""), created: -1)
   
   weak var delegate: TaskDataEnteredDelegate? = nil
@@ -117,15 +118,25 @@ class CreateTaskViewController: UIViewController {
   
   @objc func back(sender: UIBarButtonItem) {
     
+    guard isDataChanged else {
+      self.navigationController?.popViewController(animated: true)
+      return
+    }
+    
     self.showSaveAlert(message: GlobalConstants.saveTaskMessage)    
   }
   
   private func setLabels() {
+    setTitleTextField()
     setDescriptionTextView()
     setupCategoryButton()
     setupAddCategoryButton()
     setupPriorityButton()
     setupDeadLineTextField()
+  }
+  
+  private func setTitleTextField() {
+    titleTextField.delegate = self
   }
   
   private func setDescriptionTextView() {
@@ -174,6 +185,7 @@ class CreateTaskViewController: UIViewController {
       case .success(let response):
         self.showAlert(message: GlobalConstants.categorySuccessfullyAddedMessage)
         self.task.category = response
+        self.isDataChanged = true
         self.refreshCategories()
       }
     }
@@ -235,6 +247,7 @@ class CreateTaskViewController: UIViewController {
     let selectedDate = datePicker.date
     deadLineTextField.text = "До \(dateFormatter.string(from: selectedDate))"
     self.task.deadline = Int(selectedDate.timeIntervalSince1970)
+    self.isDataChanged = true
     
     fade(view: modalHelpView, hidden: true)
     view.endEditing(true)
@@ -326,8 +339,21 @@ extension CreateTaskViewController: UITextViewDelegate {
   
   func textViewDidEndEditing(_ textView: UITextView) {
     self.task.description = description
+    self.isDataChanged = true
   }
   
+}
+
+//MARK: - text field delegate
+extension CreateTaskViewController: UITextFieldDelegate {
+  
+  func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    guard let title = textField.text, !title.isEmpty else {
+      return
+    }
+    self.task.title = title
+    self.isDataChanged = true
+  }
 }
 
 // MARK: - save alert
@@ -362,6 +388,7 @@ extension CreateTaskViewController {
         }
         self.task.title = title
         self.task.description = description
+        self.isDataChanged = true
         
         self.backendService.postTask(title: self.task.title, description: self.task.description, done: self.task.done, deadline: self.task.deadline, categoryId: self.task.category.id, priorityId: self.task.priority.id) { result in
           switch result {
